@@ -1,0 +1,53 @@
+#!/bin/sh
+clear
+rm /etc/localtime
+ln -fs /usr/share/zoneinfo/Europe/Madrid /etc/localtime
+dpkg-reconfigure --frontend noninteractive tzdata >/dev/null 2>&1
+
+echo -e "\e[1;40;35mDO YOU WANT TO SCHEDULE THE AUTOMATIC RESTART OF THE SERVER ?\e[0m" 
+echo -e "\e[1;40;37m1) \e[1;40;32mYES\e[0m"
+echo -e "\e[1;40;37m2) \e[1;40;32mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo si:
+
+       echo -e "\e[1;40;35mYOU WANT ME TO BE?\e[0m" 
+	echo -e "\e[1;40;37m1) \e[1;40;32mDAIRY\e[0m"
+	echo -e "\e[1;40;37m2) \e[1;40;32mWEEKLY\e[0m"
+
+	read red0
+	case $red0 in
+
+       1) echo TELL ME THE TIME YOU WANT THE DAILY RESET BETWEEN 2H AND 6H 
+	read red0
+
+	M=$(shuf -i 10-59 -n 1)
+        echo YOUR SERVER WILL REBOOT EVERY DAY AT  "$red0:$M"H
+	echo -e "$( crontab -u root -l)\n$M $red0 * * * /sbin/reboot" |  crontab -u root -
+	rm  /tmp/reinicio
+ 
+       ;;
+
+       2) echo TELL ME THE TIME YOU WANT THE DAILY RESET BETWEEN 2H AND 6H 
+	read red0
+
+	M=$(shuf -i 10-59 -n 1)
+        echo YOUR SERVER WILL REBOOT EVERY MONDAY AT "$red0:$M"H
+	echo -e "$( crontab -u root -l)\n$M $red0 * * 1 /sbin/reboot" |  crontab -u root -
+	rm  /tmp/reinicio
+
+       ;;
+	 
+   esac         
+;;
+       2) echo OK
+       	rm  /tmp/reinicio
+       ;;
+	 
+       *)
+         clear
+         echo "Wrong option";;
+   esac
+

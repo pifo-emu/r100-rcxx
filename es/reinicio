@@ -1,0 +1,53 @@
+#!/bin/sh
+clear
+rm /etc/localtime
+ln -fs /usr/share/zoneinfo/Europe/Madrid /etc/localtime
+dpkg-reconfigure --frontend noninteractive tzdata >/dev/null 2>&1
+
+echo -e "\e[1;40;35mQUIERES PROGRAMAR EL REINCIO AUTOMATICO DEL SERVIDOR?\e[0m" 
+echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+echo -e "\e[1;40;37m2) \e[1;40;32mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo si:
+
+       echo -e "\e[1;40;35mQUIERES QUE SEA?\e[0m" 
+	echo -e "\e[1;40;37m1) \e[1;40;32mDIARIO\e[0m"
+	echo -e "\e[1;40;37m2) \e[1;40;32mSEMANAL\e[0m"
+
+	read red0
+	case $red0 in
+
+       1) echo DIME LA HORA EN LA QUE QUIERES EL REINICIO DIARIO ENTRE LAS 2H Y 6H
+	read red0
+
+	M=$(shuf -i 10-59 -n 1)
+        echo TU SERVIDOR SE REINICIARA CADA DIA A LAS "$red0:$M"H
+	echo -e "$( crontab -u root -l)\n$M $red0 * * * /sbin/reboot" |  crontab -u root -
+	rm  /tmp/reinicio
+ 
+       ;;
+
+       2) echo DIME LA HORA EN LA QUE QUIERES EL REINICIO ENTRE LAS 2H Y 6H
+	read red0
+
+	M=$(shuf -i 10-59 -n 1)
+        echo TU SERVIDOR SE REINICIARA CADA LUNES A LAS "$red0:$M"H
+	echo -e "$( crontab -u root -l)\n$M $red0 * * 1 /sbin/reboot" |  crontab -u root -
+	rm  /tmp/reinicio
+
+       ;;
+	 
+   esac         
+;;
+       2) echo OK
+       	rm  /tmp/reinicio
+       ;;
+	 
+       *)
+         clear
+         echo "Opcion erronea";;
+   esac
+

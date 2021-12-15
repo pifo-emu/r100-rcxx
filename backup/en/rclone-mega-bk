@@ -1,0 +1,13 @@
+#!/bin/sh
+#THIS YOU CAN EDIT 
+EMUDIR=/usr/local/etc/multics/ #Path of your Multics configuration 
+CARPETA=Multics-R100-IP-$(curl -s -4 ifconfig.me) #Edit the folder name if you want it to be different
+REMOTE=Mega 
+
+#DO NOT EDIT OR TOUCH 
+BACKUPDIR=`date +%Y` #IT IS FOR YOU TO CREATE A FOLDER PER YEAR 
+DIR=$CARPETA/$BACKUPDIR/ #IT IS FOR YOU TO CREATE A FOLDER BY FOLDER_NAME/YEAR/ 
+NOMBRE=/tmp/backups-`date +%d-%m-%Y`.tar.gz
+tar -zcvf $NOMBRE $EMUDIR
+/usr/bin/rclone copy --update --verbose --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s "$NOMBRE" "$REMOTE:$DIR"
+rm $NOMBRE

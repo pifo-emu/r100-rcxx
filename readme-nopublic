@@ -1,0 +1,1252 @@
+
+release date: 14.12.2021
+
+MultiCS r100-rc47 Not Public - Broken Arrow - MEGA CLEAN CACHE Edition - created exclusive for: Multics.es - xDecrypt-Digital-Technologies™ - c5d1a4dada6e7269698579773c1720505b02caac
+
+1. details for this version of multics :
+   
+   ------- unlimited servers -------
+   ------- unlimited users   -------
+   ------- improved advanced parallelize system -------
+   ------- advanced speedup system -------
+   ------- advanced threads protection system -------
+   ------- loadbalance for servers improved (specially for big amount of servers) -------
+   ------- many bug fixes and enhancements, iptables, design, skipcwc and others ... ------------
+   ------- fixed bugs from test version rc02 ---------
+   ------- fixed standard servers removing by editor causing faults (important for auto-exchanges) --------
+   ------- fixed cacheex servers removing by editor causing faults (important for auto-exchanges) --------
+   ------- possible to build one strong multics with very strong cache, with unlimited amount of N lines and users and profiles ---------
+   ------- added NDS SMARTFILTER for 09C4 and 098C (rc06) ---------
+   ------- fix for NDS SMARTFILTER (rc07) --------
+   ------- added more debug for NDS SMARTFILTER (rc08) --------
+   ------- fix for ecmlist (rc08) --------
+   ------- improved servers/clients connection stability to avoid reconnections (rc08) ---------
+   ------- improved ecm handling to better speed (rc08) --------
+   ------- added multi function button to Servers page (rc08) --------
+   ------- added AES256 config file encryption (rc08) --------
+   ------- added Parameters page for parameters not possible to set on other pages - now there parameters for Servers (rc08) ---------
+   ------- added buttons disconnected and disabled to Newcamd, Mgcamd, CCcam and CS378X pages (rc09) ---------
+   ------- added possibility to AUTO DISABLE SERVERS on 0% and <10% ECM OK (rc09) --------
+   ------- added possibility to reset servers stats counts on Server Page (by button on Parameters Page) (rc09) --------
+   ------- added LOADBALANCER options, fastest server first, VALIDECMTIME cycles (rc09) ---------
+   ------- added RECONNECTION options, monitoring fast reconnections from servers and possibility to disable these users (rc09) --------
+   ------- added oscam.fakecws file support (rc09) --------- 
+   ------- added advanced licensing (rc09) --------
+   ------- fixed issue 8s reconnecting of mgcamd and ccccam client/server (rc10) ----------
+   ------- if you will have this issue with server line added , the opposite it's incompatible bad compiled version of multics ----------
+   ------- this issue seems as common on a lot of versions of multis's --------- 
+   ------- core tunning to maximum speed performance (rc10) ---------
+   ------- fixed big issue - cache not serve full list of profiles (only <=31) - now value raised to 200 profiles (rc10) ----------
+   ------- this issue seems as common on a lot of versions of multis's --------
+   ------- added possibility to test 7days for every new version (rc10) ----------
+   ------- added possibility cache identification to mask as HB32 (rc10) ----------
+   ------- improved security (rc10) --------
+   ------- fixed SID's DENY - added SID DENYLIST option and SID PRIORITY (rc10) ---------
+   ------- added tunning for max_csports , sharelimits and cache_value by start parameters (rc10) ---------
+   ------- many bug fixes (rc11) -------
+   ------- added support for tunneled betacrypt/nds (rc12) --------
+   ------- fixed cccam share ports more like 22 --------
+   ------- added advanced option to SMART FILTER to block dcw's 09c4 from old versions and untrusted versions (rc13) --------  
+   ------- added new parameter for blocking of Multics HB versions 33 and above, because of bad dcw caches abuse and untrusted users's security (rc13) --------
+   ------- fixed blocking of Multics HB33 and above - it was always blocking (rc14) ---------
+   ------- fixed 09c4 SMARTFILTER : REJECT_NDS_DCW_OLDER_VERSIONS ACTIVE was rejecting also r100 (rc14) --------             
+   ------- mask as HB added now working on any version MASK_AS HB_VXX: 0 - if number is 0 , it's turned off (rc14) --------
+   ------- again possible to use CUSTOM STRING ID_CACHE: your string - maximum is 31 characters (rc14) ---------
+   ------- newest libcrypto and libssl now sure statically linked to avoid install problems ---------
+   ------- cache fixes and improvements (rc15) ---------
+   ------- mgcamd fixes and inprovements (rc16) --------- 
+   ------- cache and other small fixes (rc16) , improved stability --------
+   ------- many bug fixes and improvements (rc16) --------
+   ------- higher speed for ECM processing per minute (rc17) --------
+   ------- fix for betacrypt cache (rc18) -------
+   ------- security fix (rc19) -------
+   ------- added option -D 1 as start parameter for using of all characters in user/password (rc20) ---------
+   ------- added button to cache page Auto-Added Caches to show auto added cache possible to import with editor (rc20) --------
+   ------- ecm thread high power stability fix (rc21) -------
+   ------- mgcamd fixes (rc21) -------
+   ------- fixed DCW_MINTIME_SET MS: (rc21) -------
+   ------- added option CACHE SKYDE_THRESHOLD: 2 (rc21) -------
+   ------- check for count of mgcamd and cccam profiles to avoid reconnections - needed to modified manually (rc22) ------
+   ------- mgcamd, cccam and newcamd connections stability improvements (rc23) -------
+   ------- many bug fixes and improvements (rc24) --------
+   
+           CHAHNGES FOR rc25: 
+   
+   ------- rebuilded core (rc25) -------
+   ------- many bug fixes and improvements (rc25) --------
+   ------- connections stability improvements (rc25) --------
+   ------- NDS fix (rc25) -------
+   ------- cacheex and camd35 fixes (rc25) -------
+   ------- caches and csp fixes (rc25) --------
+   ------- cache fix for 0609 - but raise also cache timeout value for profile to : CACHE TIMEOUT: 800 (rc25) --------
+   ------- default cache fix, now possible as optimal value use also higher values, set optimal now to 500: DEFAULT CACHE TIMEOUT: 500  (rc25) -------
+   ------- fix and rebuild of CACHE SKYDE_THRESHOLD (rc25) ----------
+   ------- fix and rebuild of DCW_MINTIME_SET MS (rc25) ---------
+   ------- cache skyde optimalizations (rc25) ----------
+   ------- https optimalizations for another web browsers as mozilla firefox (rc25) ---------
+   ------- fix for cacheex server removing - disconnect causing faults (rc25) ---------
+   ------- fix for 1708 (rc25) --------
+   ------- scan for r107 and HB xx (rc25) -------
+   ------- caches UDP advanced proto to priorize r100 against r107 and HBxx (rc25) --------
+   ------- r107 and HBxx UDP re-transfered to development GPU server for analyze (rc25) -------- 
+   
+              CHAHNGES FOR rc26: 
+
+   We are glad and welcome our new memeber Aikonas of our team and appreciate his work on our versions
+   also we appreciate his work on our publicity  
+   
+   thank you Aikonas              
+   
+   ------- added option AUTO_UPDATE ON: YES (rc26) -------
+   
+                        CHAHNGES FOR rc27:   
+   
+   ------- rebuilded core to increase security (rc27) -------   
+   ------- security: security code AES encryption for input/output/messages (rc27) -------   
+   ------- rollback for connections stabilty and revert to last passed test  -------
+   ------- as last changes to hard level of connections causing unwanted states  -------
+   ------- now connections stable on all protocols (rc27) -------
+   ------- identified issue with dcw check for skipcwc caids causing freeze and maybe -------      
+   ------- also bad dcw, fixed now for caids: 09c4,098c,1811,0500  -------
+   ------- for mgcamd, cccam, newcamd, camd35 and cs378x proto (rc27) -------   
+   ------- identified issue not fixed yet, for later testing: 0609 cache (rc27) -------
+   ------- first testing of nightly auto-update on production mode from 22.10 - 23.10 / 3-5 AM (rc26 to rc27) -------
+   ------- added CACHE MEO_THRESHOLD: 2 to minimalize cache bad dcw for MEO (rc27) -------   
+   ------- added CACHE ZON_THRESHOLD: 2 to minimalize cache bad dcw for ZON (rc27) -------
+   ------- in multics.cfg example added DEFAULT SERVER THRESHOLD: 1    (rc27) -------         
+   ------- in multics.cfg example added SERVER THRESHOLD: 2  for profile 09C4    (rc27) -------         
+   ------- in multics.cfg example added SERVER THRESHOLD: 2  for profile 1814    (rc27) -------
+   ------- in multics.cfg example added SERVER THRESHOLD: 2  for profile 1802    (rc27) -------      
+   ------- in multics.cfg example changed value of REJECT_NDS_DCW_OLDER_VERSIONS ACTIVE: YES  (rc27) -------   
+   ------- these settings use on your state of count of servers/caches --------   
+         
+                       CHAHNGES FOR rc28:
+   ------- fixed HW pairing issue on VPS (rc28) --------         
+
+                       CHAHNGES FOR rc29:
+   ------- fixed core lookup falling down issue on debian and maybe some other systems (rc29) --------  
+   ------- compilation fixes to improve stability (rc29) --------         
+   ------- to auto-update added file readme.txt (rc29) --------   
+    
+                       CHAHNGES FOR rc30:
+   ------- RAM fix (rc30) --------   
+   
+                       CHAHNGES FOR rc31:
+   ------- rebuilded main core to increase security (rc31) --------
+   ------- security improvements (rc31) --------
+   ------- sh defunct fix (rc31) --------
+   ------- added option SERVER CACHE_THRESHOLD: x for each profile (rc31) --------        
+   ------- if this option is not used for profile, it's valid CACHE THRESHOLD common option (rc31) --------         
+   ------- rebuilded skip cwc checksum to faster processing (rc31) --------    
+   ------- added option FAST_ACCEPT_MODE ON: YES (rc31) --------
+   ------- added option ECM_HEADER ACTIVE: YES (rc31) --------
+   ------- attention : this version has very high ecm processing per minute, if you have big amount of 
+           servers/users/profiles , than it also taking high power on CPU/Memory in this case
+           recommended server is : dedicated 8 core and 32GB RAM memory
+           if you want low power of cpu/memory , use another version
+   ------- attention: don't change nothing in binary, as it may cause unwanted states -------        
+  
+                         CHAHNGES FOR rc32:
+   ------- rebuilded halfnulled non nds to minimalize bad dcw on non nds caids (rc32) --------
+   ------- fix for ecm headers (rc32) --------             
+   ------- ecm headers added for mgcamd and cs378x (rc32) --------
+   ------- fix for cache identification (rc32) --------
+   ------- removed gdb script trap as non correct for legal gdb users and not needed more for security (rc32) --------
+   ------- to config example added ecm headers for 1810,0100,1803 (rc32) --------
+
+                         CHAHNGES FOR rc33:
+   ------- removed all dangerous security parts of code (rc33) --------
+   ------- removed fast accept mode causing problems (rc33) --------
+
+                         CHAHNGES FOR rc34:
+   ------- rebuilded skipcwc and smartfilter (rc34) --------
+   ------- fixed null provider for smartfilter causing problems on viacess reject (rc34) --------           
+   ------- only for manual install, now not statically linked libcrypto and libssl, may require (rc34) --------
+   ------- binary now only one for glibc >= 2.25 , ubuntu 18.04 and above (rc34) --------   
+   ------- glibc < 2.25 not supported moore, ubuntu <18.04 (rc34) --------   
+   ------- added new options:
+                        REJECT_SKIPCWC_OLDER ACTIVE: YES
+                        REJECT_SKIPCWC_OLDER LOG: NO     
+                        REJECT_CAK7_OLDER ACTIVE: YES
+                        REJECT_CAK7_OLDER LOG: NO  
+   ------- auto-update now supported only from manually installed rc34 for next versions (rc34) --------
+   
+                         CHAHNGES FOR rc35:
+   ------- fix for 1819 (rc35) --------
+   ------- fix for cccam cacheex causing segfaults (rc35) --------           
+   ------- added options FAST_SKIPCWC_CAIDS: (rc35) --------
+   ------- added auto-update option also to Public Beta (rc35) --------    
+   ------- auto-update now supported only from manually installed rc35 for next versions (rc35) --------
+
+                            CHAHNGES FOR rc36:
+   ------- rebuilded skipcwc to fastest structs (rc36) --------
+   ------- rebuilded smartfilter to fastest structs replaced with easy skip (rc36) --------           
+   ------- rebuilded dcw processing to minimalize bad dcw (rc36) --------
+   ------- attention: some syntax changed and somem options obsolete as below  (rc36) --------
+   ------- attention: check profile values regarding to DCW SKIPCWC: YES by new config file (rc36) --------
+    
+                            CHAHNGES FOR rc37:
+   ------- fixed profiles page not correctly showing status of skipcwc (rc37) --------
+   ------- stability fixes (rc37) --------
+
+                            CHAHNGES FOR rc38:
+   ------- fixed SID DENYLIST taking before only one SID or SIDS arranged from low to high (rc38) --------
+   ------- stability fixes (rc38) --------
+   
+                            CHAHNGES FOR rc39:
+   ------- added options: DCW SKIPCWC_EXCLUDE_SIDS_ACTIVE: and DCW SKIPCWC_EXCLUDE_SIDLIST: (rc39) --------
+   ------- added options: DCW SKIPCWC_ONLY_SIDS_ACTIVE: and DCW SKIPCWC_ONLY_SIDLIST: (rc39) --------   
+   ------- core stability fixes (rc39) -------- 
+   
+                            CHAHNGES FOR rc40:
+   ------- implementation FREECCCAM back by request, syntax as for r82 (rc40) --------
+   ------- core stability fixes (rc40) --------
+       
+                            CHAHNGES FOR rc41:
+   ------- fix for firewall to ignore local network (rc41) --------
+   ------- fixed stealth mode for ccccam:  CCCAM STEALTHMODE: YES (rc41) --------
+   ------- fix for DCW_MINTIME_SET MS: before not working ok (rc41) --------
+   ------- fixes for r100 identification (rc41) --------
+   ------- added cycle check for profiles, activation with: DCW CYCLE_CHECK: YES (in profile) (rc41) --------
+   ------- fix for 098D (rc41) --------   
+   
+                            CHAHNGES FOR rc42:
+   ------- many bugs fixed and small improvements --------
+   ------- contains hidden options --------
+
+                            CHAHNGES FOR rc43:
+   ------- fix for hidden options --------
+   ------- added button for reloading of hidden options to parameters page --------
+
+                            CHAHNGES FOR rc44:
+   ------- small fixes and code cosmetic changes --------
+   ------- added priority for cs378x - now priority=1 accepted also for cs378x caches --------   
+
+                            CHAHNGES FOR rc45:
+   ------- small fixes and code cosmetic changes --------
+   ------- security rebuilded --------
+   ------- removed hidden options - now they are as standard --------
+
+                            CHAHNGES FOR rc47:
+   ------- fixed freecccam --------
+   ------- fixed cache reconnect iptables problem (not yet fully tested) --------
+   ------- added option HTTP CS378X: NO (in default if not in the config is enabled) --------   
+   ------- other small code fixes --------  
+     
+   ------- stability tested on 2183 server lines and 3682 newcamd connections and 111 profiles ----------  
+
+1.3.0.0
+      how to activate hidden options, please contact selling-manager on skype  
+
+1.3.0.1
+     in this version is added cw cycle check, it's possible to activate it for each profile by:   
+     DCW CYCLE_CHECK: YES
+     with this mode on yes, should be fake dcw's dropped 
+     this function is still under development and will be improved in next releases
+     to avoid timeout while fake dcw dropped, would be possible to set more server first processed
+     or timing as would be possible to find fast replacement for dropped dcw
+     
+1.3.0.9
+     added back FREECCCAM
+     syntax in config is as for r82 version
+
+1.3.1.0
+     added options:
+     DCW SKIPCWC_EXCLUDE_SIDS_ACTIVE: YES
+     DCW SKIPCWC_EXCLUDE_SIDLIST: 0123,0124,0125 
+     
+     if option SKIPCWC_EXCLUDE_SIDS_ACTIVE is set to YES, than sids from SKIPCWC_EXCLUDE_SIDLIST
+     are excluded from SKIPCWC cycle - these sids are allowed also when checksum is ok and
+     checksum option: DCW SKIPCWC: is set to YES 
+     
+     added options:
+     DCW SKIPCWC_ONLY_SIDS_ACTIVE: YES
+     DCW SKIPCWC_ONLY_SIDLIST: 0123,0124,0125 
+     
+     if option SKIPCWC_ONLY_SIDS_ACTIVE is set to YES, you can use SKIPCWC_ONLY_SIDLIST for sids, 
+     which are not checked by checksum (SKIP), also when option DCW SKIPCWC: is set to NO    
+
+1.3.2.1
+     attention: changed syntax for skipcwc:
+     removed: ENABLE SKIPCWC: YES/NO
+     
+     replaced with: DCW SKIPCWC: YES/NO
+     
+     removed obsolete: (examples in config)
+     ECM_HEADER
+     
+     replaced with:  (headers with any length delimited with comma "," )
+     
+     DCW ECM_HEADER_ACTIVE: YES
+     DCW ECM_HEADER_VALUES: 80308B078400,81308B078400
+     
+     example for 09C4 now valid:
+     
+        [SKYDE-09C4]
+        CAID: 09C4
+        PROVIDERS: 0
+        PORT: 17026
+        DCW SKIPCWC: YES
+        DCW HALFNULLED : YES
+        DCW CHECK: NO
+        SERVER THRESHOLD: 0
+        SERVER CACHE_THRESHOLD: 0
+        DCW ECM_HEADER_ACTIVE: YES
+        DCW ECM_HEADER_VALUES: 8170A400,8070A400
+        ECM CHECK LENGTH: YES
+        ECM LENGTH: A7
+     
+     now possible to turn off cache_threshold for profiles by:  (faster processing)
+     now not recommended to use cache threshold for profiles, rather ecm headers   
+     
+        CACHE_THRESHOLD_PROFILE ACTIVE: NO
+     
+     removed obsolete SMARTFILTER: (now easy skipcwc used automatically - fastest)
+        
+        SKIPCWC_CHECKSUM_TEST DISABLE_FIXED: YES
+
+        REJECT_BAD_DCW ON_SKIPCWC: NO
+
+        LOG_BAD_NDS_DCW ACTIVE: NO
+
+        SHOW_ONLY_BAD_NDS_DCW ACTIVE: NO
+
+        LOG_BAD_NDS_DCW TO_FILE: NO
+
+        NDS_SMARTFILTER THECM: 0
+        NDS_SMARTFILTER CLI_CCCAM: 0
+        NDS_SMARTFILTER CLI_RADEGAST: 0
+        NDS_SMARTFILTER SRV_NEWCAMD: 0
+        NDS_SMARTFILTER CLI_NEWCAMD: 0
+        NDS_SMARTFILTER SRV_CAMD35: 0
+        NDS_SMARTFILTER CLI_CAMD35_CACHEEX: 0
+        NDS_SMARTFILTER SRV_CS378X: 0
+        NDS_SMARTFILTER SRV_CCCAM: 0
+        NDS_SMARTFILTER CLI_CS378X: 0
+        NDS_SMARTFILTER SRV_MGCAMD: 0
+        NDS_SMARTFILTER CLI_CCCAM_CACHEEX: 0
+        NDS_SMARTFILTER CLI_CS378X_CACHEEX: 0
+        NDS_SMARTFILTER CLI_CAMD35: 0
+        NDS_SMARTFILTER CLI_CACHE: 0
+        
+        removed after testing with bad results also options:
+        
+        REJECT_NDS_DCW_OLDER_VERSIONS ACTIVE: NO
+        REJECT_NDS_DCW_OLDER_VERSIONS LOG: NO
+        
+        REJECT_SKIPCWC_OLDER ACTIVE: NO
+        REJECT_SKIPCWC_OLDER LOG: NO
+        
+        REJECT_CAK7_OLDER ACTIVE: NO
+        REJECT_CAK7_OLDER LOG: NO
+        
+     removed obsolete fast_accpet, now automatically processed:
+     
+        FAST_SKIPCWC_CAIDS ACTIVE: NO
+        FAST_SKIPCWC_CAIDS VALUES: 0500,1811,FFFF,1863 
+     
+     changed in example config DCW SKIPCWC: NO for caid 0500:050F00  (there are good cheksum ok dcw processed, by testing)            
+
+1.3.3.0
+     added option : (example caids) 
+        FAST_SKIPCWC_CAIDS ACTIVE: YES
+        FAST_SKIPCWC_CAIDS VALUES: 0500,09C4,098C,1819,1811,1708,1709
+     if this option is active and caid values are set , there is lowering cycling from 200 to 7
+     for maximum performance
+
+1.3.3.1
+     now recommended to use SMARTFILTER all to 1 + ECM Headers in profiles
+     thresholds back to 0, as for now it should to filter ecm headers
+
+1.4.4.1
+     added options:
+        REJECT_SKIPCWC_OLDER ACTIVE: YES
+        REJECT_SKIPCWC_OLDER LOG: NO
+     when active, reject skipcwc caids from multics versions older as r80
+     as on these versions is not filtering of bad skipcwc dcw's
+     better for now remove old caches
+         
+1.5.5.1
+     added options:
+        REJECT_CAK7_OLDER ACTIVE: YES
+        REJECT_CAK7_OLDER LOG: NO
+     when active, reject skipcwc caids from multics versions older as r80
+     as on these versions are not ecm headers, and providers sends some bad ecm's for cak7 caids
+     better for now remove old caches
+     
+1.6.6.1
+     added option SERVER CACHE_THRESHOLD: x (x=number) for each newcamd profile
+     removed previous skyde_threshold,meo_threshold, zon_threshold
+     now able to use this option for each newcamd profile
+     if there is not added, means = 0 , then is valid common CACHE THRESHOLD: x  mode
+
+1.7.7.1        
+     added option FAST_ACCEPT_MODE ON: YES
+     use this mode , only if you don't need more skipcwc caids, as there are hardcoded the following:
+     09c4,098c,1811,1708,1709,0500
+     in this mode is faster processing of dcw accept , without cycling and debug
+     also in this mode is not active smartfilter
+     it's recommended to use this mode, if it's enough for skip cwc caids above and
+     when you are using also ECM_HEADER mode    
+
+1.8.8.1
+     added option ECM_HEADER ACTIVE: YES
+     ecm header is first bytes of ECM , whom are not changed - before ecm data
+     if this mode is YES , there are needed also folowwing parameters:
+     ECM_HEADER DEBUG: NO   (YES/NO - possible to see rejected headers in debug page)
+     ECM_HEADER COUNT: 2    count of ecm headers
+     ECM_HEADER LENGTHS: 8,8    length of ecm header in numbers of characters in HEX value
+     ECM_HEADER VALUES: 8170A400;8070A400    ecm headers always in 8 characters divided by comma,
+     if headers are longer as 8 characters, each header divided by point-comma
+     
+     (above is example for 09c4)
+     
+     example for Polsat 1803:
+     
+     ECM_HEADER ACTIVE: YES
+     ECM_HEADER DEBUG: NO
+     ECM_HEADER COUNT: 3    (there are three ecm headers on values : 80008F078D 80308F078D 81308F078D)
+     ECM_HEADER LENGTHS: A,A,A   (length of each header is 10 characters, in HEX value A)
+     ECM_HEADER VALUES: 80008F07,8D;80308F07,8D;81308F07,8D  (values are always after 8 characters divided by comma (,)
+     and each header is divided by point-comma (;)
+     
+     you can use shorter or longer ecm headers, for longer probably more ecm headers
+     
+     it's strongly recommended to use it for 09C4 as there is a big amount of bad ecm with the same length
+     
+     examples were added to multics.cfg attached
+     
+     example for OrangeSK:
+     
+     ECM_HEADER ACTIVE: YES
+     ECM_HEADER DEBUG: NO
+     ECM_HEADER COUNT: 14
+     ECM_HEADER LENGTHS: 8,8,8,8,8,8,8,8,8,8,8,8,8,8
+     ECM_HEADER VALUES: 81704D75;80704D75;81705B73;80705B73;81704373;80704373;81705177;80705177;81704773;80704773;81703D73;80703D73;81704D73;80704D73        
+
+1.9.9.1
+    
+    added option AUTO_UPDATE ON: YES  (or NOT)
+    with this option all updates are processed automatically to not bothering with manuall update
+    updates are checked and if available processed in night from 2 - 5 Hours AM   
+
+2. this version always need for start option -C (config file path) for some parsing , than ensure you always start it with 
+   -C /path/to/config/configfile.cfg
+   it's needed also when you are using default path : /var/etc/multics.cfg 
+   
+   put checksumkey and hwpairingkey to your config !!!
+   
+   put checksum and readme.txt files to config path !!!
+   
+   don't use non linux editors for your config files !!!
+   
+   after first start put down somewhere your HW PAIRING DATA !!!  - as after expiration not possible to get them back
+   
+   recommended: http://www.pspad.com/en/
+   
+   start this version as root user
+   
+   or from cron with sudo   (required for iptables)
+
+2.0.0
+    Use for mgcamd maximum 39 profiles, to avoid reconnections
+    for cccam use maximum 60 profiles to avoid reconnections
+    
+    if it's possible, use low number of profiles as possible, for faster and better responses and
+    also to avoid reconnections
+    it's better to use profiles for viaccess 0500:...... and use there all provid
+    the same for example seca 0100:64,6a,6c,.......
+    use this grupping to minimalize amount of ports
+    
+    those 107 profiles in config example is only for development server testing
+    
+    you should select only caids what you will have sure working with reponses
+    
+    if you really need so much profiles, use them by newcamd, and for mgcamd and cccam max as above,
+    or you can use more mgcamd and cccam ports to divide it 
+    
+2.0.1
+    there were added parameters for SKY DE 09C4 for more clean processing, you can use them in config like this:
+    
+    DCW_MINTIME_SET MS: 150
+    MINTIME: 150
+    CACHE SKYDE_THRESHOLD: 2
+    
+    these parameters are not valid for each profile, but as common
+    should be written to above profiles 
+
+2.0a
+    starting from rc20 there is possible to use start option -D 1
+    when this option is used, it's possible to use any character for user/password, also character #
+    to acoid any problems, it's better when using of, remove comments with #
+    example of using:
+    /usr/local/bin/multics -D 1 -b -C /usr/local/etc/multics/multics.cfg
+    
+2a. 
+   CUSTOM STRING ID_CACHE: YourString
+   
+   maximum 31 characters, possible to use also for masking as any other versions (not recommended, only on request by some users)
+
+2a.1.0
+    
+    MASK_AS HB_VXX: 0
+    
+    also possible to use for masking as HB any version, if 0 it's turned off (not recommended, only by request of some users)
+    
+2a.1.1
+    for maximum performance , use exactly values from multics.cfg
+    
+    you can set by this parameter your custom string showed on multics web pages, your nickname or servername or others...
+    #Custom string visible on Web pages with version of multics (first char has to be -)
+    CUSTOM STRING: -My-Version
+    
+   LOADAVERAGE RESTART: 300
+    
+    restart multics , if loadverage is over set value and system is overloaded 
+    
+    EMAIL INFO: my_email@gmail.com
+    
+    it's possible to set email in config, it's used for auto generating of scripts, if email is not set, in scripts 
+    is set example@gmail.com
+    
+    in this version is added complete system for handling errors and threads auto-correction
+    thse parameters in config are possible to set:
+    
+    RESTART_ON SIGTERM: NO
+    RESTART_ON SIGHUP: NO
+    RESTART_ON SIGABRT: NO
+    RESTART_ON SIGSEGV: NO
+    
+    those parameters means , when signalis raised , it's possible to set restart action on , or to block it
+    when parameters are set on NO and signals are blocked, it starts auto-correction system 
+    if this system is not possible to handle error and reset the signal ,it's processed force restart 
+
+    RESTART_ON SIGTERM: YES
+    RESTART_ON SIGHUP: YES
+    RESTART_ON SIGABRT: YES
+    RESTART_ON SIGSEGV: YES
+    
+    if parameters are set to YES, when signal is catch, it's processed immediatelly restart 
+    
+  with parameters below is possible to set start of a script defined, on catched signal :
+    
+  RUN_SCRIPT_ON SIGTERM: /mnt/rd/x/etc/multics6/sendmail_on_sigterm_multics6.sh
+  RUN_SCRIPT_ON SIGHUP: /mnt/rd/x/etc/multics6/sendmail_on_sighup_multics6.sh
+  RUN_SCRIPT_ON SIGABRT: /mnt/rd/x/etc/multics6/sendmail_on_sigabrt_multics6.sh
+  RUN_SCRIPT_ON SIGSEGV: /mnt/rd/x/etc/multics6/sendmail_on_sigsegv_multics6.sh
+  
+  these scripts are automatically generated to config path, they are rewritten on each restart
+  than when you need another script , you can copy/modify/ these ones
+  
+  and set them as upper, to location/name
+  
+  default generated script is for sending email on signal, for this you need to has set-up mail and ssmtp config
+  for sending with gmail
+  
+  how to set-up email on ubuntu:
+  
+  https://vitux.com/how-to-use-gmail-from-the-ubuntu-terminal-to-send-emails/
+  
+  if there is another app for ubuntu for email (those generated is for mail on gentoo),
+  you can existing script copy/modify/rename/set as new one   
+
+2.0.0
+  MAXIMUM PERFORMANCE TUNNING
+  
+  added start parameters for maximum performance cycling for MAX_CSPORTS , SHARELIMITS and CACHE_VALUE
+  
+  now is possible to add on start these parameters to commandline:
+  
+  -M 95  it's maximum csports value default : 200 - this value, you can set it by your profiles count like this:
+   200 is default value hardcoded
+   (200-your_profiles_count + 2 as reserve)  
+   example : profiles count is 40
+   value should be : -M 158   (means, you will set value 200-158 = 42 )    
+   
+  -S 50  it's sharelimits value default : 100 - this value, you can set it by your sharelimits count like this:
+   100 is default value hardcoded
+   (100-your_sharelimits_max_value_used )  
+   example : maximum sharelimits value used is 50
+   value should be : -M 50   (means, you will set value 100-50 = 50 )
+   
+  -X 45  it's cache value (how many profiles are serve by cache) default : 150 - this value, you can set it by your profiles count like this:
+   150 is default value hardcoded
+   (150-your_profiles_count + 2 as reserve)  
+   example : profiles count is 40
+   value should be : -M 108   (means, you will set value 150-108 = 42 )
+   
+   binary start with parameters example:
+   
+   /root/projects/Multics-PrivBuild-BrokenArrow/bin/multics -M 95 -S 50 -X 45 -b -C /mnt/rd/x/etc/multics_test/multics_test.cfg
+
+2.0.1
+  DENY SIDS FIX
+  there was added parameter :
+  
+  SID DENYLIST: SID1,SID2 ....
+  
+  it's possible set priority to SID LIST or to SID DENY LIST by parameter :
+  
+  SID PRIORITY: 1
+  
+  if this parameter is not set , default is 1 , what means , that SID DENYLIST has always priority
+  if this parameter is set to 0 , priority has SID LIST
+  
+  valid , if there are used both lists
+
+2.0.2
+  added posibility for cache identification to mas as HB32 version
+  
+  to activate this, put to the config:
+  
+  MASK_AS HB_V32: YES  
+
+2.0.3
+  added new parameter for SMART FILTER to block dcw's from old versions of Multics or untrusted versions     
+  it's not only NDS, but also valid for 09c4,1810,0b00
+  
+  REJECT_NDS_DCW_OLDER_VERSIONS ACTIVE: YES
+  REJECT_NDS_DCW_OLDER_VERSIONS LOG: NO  
+
+2.0.4
+  added new parameter for blocking of Multics HB versions 33 and above, because of bad dcw caches abuse and
+  untrusted users's security 
+  
+  #auto disable HB versions HB33 and above, for caches abuse with bad DCW for 09c4,1810,0b00
+  AUTO_DISABLE_HB_VERSIONS ACTIVE: YES
+  
+  if this parameter is set to YES, go to the cache page, after that should be starting to add to config to records of CACHE PEER: 
+  on begining of the line :
+  
+  #BLOCKED_HB_VERSION:
+
+  than process SAVE on Editor page and those caches should be removed
+
+2.1
+  
+  for testing purpose only !!!
+  
+  may cause falling !!!
+  
+  keep values as they are , if you are not using watching testing and there are running big amount of requests !!! 
+  
+  LOADBALANCER
+  added parameters for Loadbalancer:   (experimental , for low servers , rather use default , what is by values lower:)
+  
+  working only on low level servers, otherwise may cause falls > srv->busy , 
+  than don't use higher values on very big and fast servers
+  there is also hardcoded protection to non active , if servers more as this parameter and if totl ecm per minute higher as 1000
+  
+  LOADBALANCER MAX_SERVERS: 0   #MAX value is 50
+  
+  selecting fastest server for ecm answer , enable only for watching , or very low servers total ecm per minute and servers lines
+
+  LOADBALANCER FASTEST_SERVER_FIRST: NO
+  
+  max ecm time for fastest server:
+  
+  LOADBALANCER FASTEST_MAXIMUM_ECM_TIME: 600
+  
+  loadbalancer active after count of ecm ok (valid also for VALIDECMTIME):
+   
+  LOADBALANCER INIT_AFTER_ECMOK: 10
+  
+  time for users are moving between connected and active (valid also for VALIDECMTIME)
+  
+  LOADBALANCER ACTIVE_VALUE: 20000
+  
+  if this parameter is set, there can be set VALIDECMTIME to lower value, for example to 800
+  when no server is find in table for this value , it raise value for next cycle with parameter TWO_PLUS_MILISECONDS ,
+  than with THREE_PLUS_MILISECONDS , than with FOUR_PLUS_MILISECONDS and than with  FIVE_PLUS_MILISECONDS
+  
+  LOADBALANCER CYCLES_ACTIVE: NO
+  LOADBALANCER TWO_PLUS_MILISECONDS: 350
+  LOADBALANCER THREE_PLUS_MILISECONDS: 500
+  LOADBALANCER FOUR_PLUS_MILISECONDS: 600
+  LOADBALANCER FIVE_PLUS_MILISECONDS: 3000
+
+2.2
+  OSCAM FAKECWS
+  
+  added support for oscam.fakecws file , if this file is in config path, it's loaded on start
+  than is processed to two of parts , one for ALL caids and second for only NDS caids and halfnulled dcw
+  it's for btter speed , if it's using , as this file has 30K lines (fake dcw)
+  
+  activating for all - not recommended , checking with every ecm answer 30K fake dcws , only for very low level servers 
+  recommended , also check if there are not higher values of ecm answers time response
+  
+  OSCAM_FAKE_CWS ACTIVE_ALL: NO
+  
+  activating only for NDS halfnulled dcw (09c4 and 098c caids) , recommended (only 241 lines processed with every dcw)
+  
+  OSCAM_FAKE_CWS ACTIVE_NDS: NO
+  
+  possible to set reverse comparing of fake dcw (experimental for testing)
+  
+  OSCAM_FAKE_CWS REVERSE: NO
+  
+  log to debug page console:
+  
+  OSCAM_FAKE_CWS LOG_ACTIVE: NO
+  
+  log to file in config path (oscam_fakecws_bad_dcw.log):
+  
+  OSCAM_FAKE_CWS LOG_TO_FILE_ACTIVE: NO
+  
+  remove log file after seconds (7 days if default 604800):
+  
+  OSCAM_FAKE_CWS LOG_FILE_REMOVE_AFTER_SECONDS: 604800
+         
+
+2b. NDS SMARTFILTER
+  
+  in this version was added nds smartfilter for bad dcw 09c4 and 098c caids
+  you can use in config these parameters:
+  
+  #activating NDS SMARTFILTER
+  REJECT_BAD_DCW ON_SKIPCWC: YES
+  #check if dcw are 64bit
+  CHECK_NDS_DCW IF_64_BIT: YES
+  #log to debug
+  LOG_BAD_NDS_DCW ACTIVE: YES
+  #show only bad dcw messages in debug
+  SHOW_ONLY_BAD_NDS_DCW ACTIVE: YES
+  #log to file (in config path): log_bad_nds_dcw.log (removed every hour)
+  LOG_BAD_NDS_DCW TO_FILE: YES
+
+  #if number parameter is 0 - reject on bad dcw is skipped, if number parameter is 1 - reject is active (experimental)
+  #active on cache 
+  NDS_SMARTFILTER THECM: 1
+  #active on cccam client
+  NDS_SMARTFILTER CLI_CCCAM: 1
+  #active on radegast client
+  NDS_SMARTFILTER CLI_RADEGAST: 1
+  #active on newcamd srv
+  NDS_SMARTFILTER SRV_NEWCAMD: 1
+  #active on newcamd client
+  NDS_SMARTFILTER CLI_NEWCAMD: 1
+  #active on camd35 srv
+  NDS_SMARTFILTER SRV_CAMD35: 1
+  #active on camd35 cacheex 
+  NDS_SMARTFILTER CLI_CAMD35_CACHEEX: 1
+  #active on cs378x srv
+  NDS_SMARTFILTER SRV_CS378X: 1
+  #active on cccam srv
+  NDS_SMARTFILTER SRV_CCCAM: 1
+  #active on cs378x client
+  NDS_SMARTFILTER CLI_CS378X: 1
+  #active on mgcamd client
+  NDS_SMARTFILTER SRV_MGCAMD: 1
+  #active on cccam cacheex
+  NDS_SMARTFILTER CLI_CCCAM_CACHEEX: 1
+  #active on cs378x cacheex
+  NDS_SMARTFILTER CLI_CS378X_CACHEEX: 1
+  #active on camd35 client
+  NDS_SMARTFILTER CLI_CAMD35: 1
+  #active on cache
+  NDS_SMARTFILTER CLI_CACHE: 1
+  
+  experimental values, keep them as they are, if you don't want to test it and try to identify sources of bad dcw's
+
+2c.
+  Added Prameters Page
+  
+  to activate:
+  
+  HTTP PARAMETERS: YES
+  
+  there is possible to set parameters for Servers page multi-button to show :
+  values : servers with percentage lower than : values from 0% to 100% 
+  for values 0% and 100% it's set to equal
+  for another values it's valid as lower than <= set values
+  
+  second line parameters Show Values In Range - there is possible to set range values
+  for servers percentage
+  from 0-10% up to 90-100%
+  
+  there were also added two parameters for config :
+  
+  with this parameter servers with 0% will be disabled 
+  
+  AUTO_DISABLE_SERVERS ZERO: YES
+  
+  time value in seconds for parameter above, after this time will be servers with 0% disabled
+  
+  AUTO_DISABLE_SERVERS ZERO_AFTER_SECONDS: 0
+  
+  you can enable all disabled servers on parameters page with button Disable/Enable =0%
+  
+  with this parameter servers with 0% - 10% will be disabled
+  
+  AUTO_DISABLE_SERVERS ZERO_TEN: NO
+  
+  time value in seconds for parameter above, after this time will be servers with 0% - 10% disabled
+  
+  AUTO_DISABLE_SERVERS ZERO_TEN_AFTER_SECONDS: 0
+  
+  you can enable all disabled servers on parameters page with button Disable/Enable =0%
+  
+  if time values in seconds parameters are set to 0 , they are disabled
+  
+  with these parameters will reconnection users set to monitoring on Parameters page in text area window
+  
+  Auto monitoring of fast reconnection users , causing network issues
+  parameter - generic count, detect count of reconnection for any users:
+  
+  AUTO_DISABLE_BAD_RECONNECTION_USERS GENERIC_COUNT: 500
+  
+  user will be monitoring only after uniq count of this user:
+  
+  AUTO_DISABLE_BAD_RECONNECTION_USERS UNIQ_COUNT: 100
+  
+  monitoring is active (for newcamd - for now only newcamd is possible):
+  
+  AUTO_DISABLE_BAD_RECONNECTION_USERS NEWCAMD: YES
+  
+  user will be disabled after seconds of monitoring (first 300s disabled on start)  
+  if this parameter is lower as 400 , only log there, without disabling - recommended
+  
+  AUTO_DISABLE_BAD_RECONNECTION_USERS NEWCAMD_SECONDS: 350
+    
+
+2d.
+  added config AES256 encryption
+  
+  on VPS is possible to encrypt config file by parameter:
+  
+  ENCRYPT_CONFIG_FILE_ON_VPS ACTIVE: YES
+  
+  also on Parameters page with buttons Encrypt Config and Decrypt Config
+  
+  be aware with using of, always create backup of your config file , before using it !  
+
+3. you can use function TURBOMODE - for activation add to config:
+  HTTP TURBOMODE: ON
+  
+  TURBOMODE ACTIVE: YES
+  now - by button on Turbomode menu
+    
+  description:
+  This function speed up some processes , but be informed , using of cause counters are not actual.
+  These cache counters are inaccurate:   Requests, Replies, Sent REQ, Sent REP
+  also some debug functions are not used in this mode
+  
+4. Iptables
+  
+   after start/restart of multics , iptables are active after 5 minutes interval
+   
+   you can activate in http function Iptables by adding to config value:
+   HTTP IPTABLES: YES
+   
+   now - by buttons on Iptables menu and on menus for cardservers
+   
+   by using them , you can flush iptables (reset to default state)
+   and also by buttons restore cache, newcamd, mgcamd, cccam , cs378x iptables rules
+   all are stored under config path directory, also for manual using 
+   
+   local network is allowed by reading of /etc/hosts file
+   than for correct using of iptables , don't forget to write to this file all your local network servers
+   
+   for example:
+   /etc/hosts
+   127.0.0.1       localhost
+   192.168.1.130   server1
+   192.168.1.101   server2
+   .
+   .
+   and so on ...
+   
+   also you can use iptabels for users , for newcamd, mgcamd, cccam , cs378x and cache
+   to activate put to config:
+   
+   - now by using of buttons as above  (on menus of cardservers web pages)
+   
+  IPTABLES CACHE: ON
+  IPTABLES NEWCAMD: ON
+  IPTABLES MGCAMD: ON
+  IPTABLES CCCAM: ON
+  IPTABLES CS378X: ON
+  IPTABLES SOFTMODE: ON
+  IPTABLES FORCEMODE: OFF
+  
+  recommended for standard mode to use them turned OFF (ON only temporarilly , while are disabled unwanted access requests)
+  
+  if this parameter is set:    this mode has priority if both soft and force are set to YES or ON
+  IPTABLES SOFTMODE: ON
+  
+  iptables are working in soft mode , in this mode are active only in set time interval
+  if you still will have unknown cache peers and users requests after a very long time 
+  you can use parameter temporarilly:
+  
+  IPTABLES FORCE: ON
+  
+  this will set iptables to hard mode and shortest time update 
+  disable this parameter after filtering all unwanted requests and use as default soft mode
+  
+  in this version is used auto pooling for iptables and xtables lock management
+  
+  if you want to flush iptables on every start/restart of multics , you can use parameter:
+  IPTABLES FLUSHONSTART: YES
+  
+  default is better to set it to NO , if you need flush iptables, you can do it from menu manually
+   
+   it's not recommended to use iptables in full time 
+   better is , if you have a many unwanted calls to cache and others 
+   to activate them for a example 10 minutes , IPTABLES CACHE: ON
+   than when it completely processed disable them 
+   than for newcamd ... mgcamd ... and others
+   
+   all iptables commands are stored to log files and bkp files under config path directory
+   it's possible to restore them by buttons on menu Iptables
+   
+   cs378x is not recommended to use either , as it's experimental
+  
+  you can disable all of them with OFF
+  if those are activated , all unknown users/clients and cache peers will be filtered (drop)
+  you can check iptables by commands:
+  iptables -L -n
+  count of records:
+  iptables -L -n | wc -l
+  only for some newcamd port , or others ports:
+  iptables -L -n | grep 17000
+  
+  if you need allow some ip (delete from iptables) , you can do that by this :
+  get the number of record :
+  iptables -L -n --line-numbers | grep 17000  (grep of port, or grep of ip)
+  there you can see number for iptables record and you can delete it by :
+  iptables -D INPUT 123   (123 is the number , put there your number which you want to delete)
+  
+  with using of Iptables_Flush from menu , local area network is allowed by adding it to top
+  level of iptables (means it's added as INPUT  with parameter -I INPUT)
+  
+  users iptables records are added as append (means those records are added on end of iptables
+  with parameter -A INPUT)
+  
+  for cache exchange disable temporarily IPTABLES CACHE: OFF
+  as when you exchange, than you will provide your cache and than there will be request to connect from your 
+  exchange user to your cache (you still don't know when and from), what causing , it will be dropped , when iptables cache are on.
+  When you finished exchanging , you can enable iptables cache back.  
+  
+5. Control for cache hits
+   on cache page there you can see level of hits per hour (Hits p/H)
+   it's counted from start time and connected time 
+   to control them you can use parameter in config:
+   CACHE MINHITS: 360
+   parameter is minimal count of hits per hour
+   it's recomended to use minimal value 360 , as it's only 1 hits per 10s
+   to allow caches with lower value causing only worse parameters regarding to network (ping and others)
+   all caches with lower value as CACHE MINHITS are marked with red color and you can disable them or 
+   delete from config
+   if you can use automatic system for this , you can use parameters to config:
+   CACHE LOWHITS_AUTODISABLE_AFTERSECONDS: 0
+   CACHE CHECK_INACTIVE_EVERYSECONDS: 0
+   CACHE REMARK_INACTIVE_AFTERSECONDS_INACTIVITY: 0
+   these functions are experimental and better is manually to disable unwanted,  but if you still want use them
+   it's working as following:
+   CACHE LOWHITS_AUTODISABLE_AFTERSECONDS: 0   (with 0 is disabled)
+   set there your value , for example 14400  (4 hours)
+   after 4 hours , if cache peer still have lower value as CACHE MINHITS , it will be disabled
+   CACHE CHECK_INACTIVE_EVERYSECONDS: 0   (with 0 is disabled)
+   inactive peers are checked every seconds interval , for example 14400 (4 hours)
+   if still those peers are inactive , when it's checked , they will be disabled after :
+   CACHE REMARK_INACTIVE_AFTERSECONDS_INACTIVITY: 0   (with 0 is disabled, set wanted value) 
+   for example :
+   CACHE CHECK_INACTIVE_EVERYSECONDS: 3600
+   will check inactive peers every hour 
+   CACHE REMARK_INACTIVE_AFTERSECONDS_INACTIVITY: 28800   (8 hours)
+   if still on every one hour check is cache peer inactive , means that will be 8 checks still disabled
+   it will be remarked in config as inactive with : 
+   #AUTO-DISABLED ON INACTIVITY- xx.xxx.xxx.xx 12444 -AUTO-DISABLED ON INACTIVITY
+   you can anytime activate it again with replacing to correct format manually
+   if you want to force deactivate minhits control for cache peer , specially is needed for oscams local exchanges
+   you can put to cache peer:   nominhits=1    parameter
+   CACHE PEER: 192.168.1.101 59020 { csp=yes; nominhits=1 }
+   or not csp peer:
+   CACHE PEER: 192.168.1.20 59020 { nominhits=1 }
+   
+6. Nettunning - Network Tunning patch
+   
+   (soft  nofile  470000) auto added as parameter for binary pid on start (rc09)
+   
+   for older and no nofile parameters:  
+    
+   in these versions added : higher value for /etc/security/limits.conf
+       *       soft  nofile  470000
+   value: 470000
+   this value is needed for opened file descriptors 
+   these file descriptors are used by gethosbyname
+   than , when you will have server lines more than 500 or 1000 , there will be hundreds of thousands opened file descriptors
+   you can check amount of opened file descriptors by command lsof | wc -l
+   if you have not istalled lsof command , on ubuntu it possible to install it by : apt install lsof
+   if nettuning patch is applied , this value is written to /etc/security/limits.conf
+   don't change this value to higher to very high values, only add a some thousands and test it
+   because very high value may cause a serious unwanted states of server system
+   this value of 470000 is tested for 1430 server lines and for this amount it's ok  
+    
+   you can use some special network parameters to tunning network for better performance
+   to activate it on http: 
+   HTTP NETTUNNING: YES
+   if you will activate it by pressing on web , there will be applied patch for sysctl with these parameters
+   these parameters are not persistence , and on every restart of server, they are default by sysctl.conf
+   
+   it's possible to revert this patch by button on menu Nettunning
+    
+   be carefull , test if not occured any disconnect issue, if yes, revert patch to default values by sysctl 
+   
+   now in this version , nettunning patch is possible to apply only once , again only after revert or restart of system
+   
+   than also from this reason , parameter in previous versions HTTP NETTUNNINGONSTART is now obsolete and not valid any more       
+   
+7. 098C and 09C4  - added : 1884, 1813, 1817, 1818 , some others 0500 ...
+   there is built-in filter for these caids to skip cwc checksum test, no needed any other options in config
+   you can exchange with any other multics versions , better massive caches as lines for 09c4 and 098c
+   
+   it's not recommended to exchange N lines for older multics versions which don't have skipcwc checksum < Multicsr82 CB
+   caches you can exchange with any other version, also with r69 , r70 and others
+   
+   -- now possible to set ENABLE SKIPCWC: YES for each profile
+   
+   to activate :
+   SKIPCWC_CHECKSUM_TEST DISABLE_FIXED: YES
+   
+   with this parameter are active values from config for each profile
+   
+   if this parameter is NO
+   SKIPCWC_CHECKSUM_TEST DISABLE_FIXED: NO
+   there are active default values hardcoded - use it, if you don't know which caids/provid would be set to skipcwc
+   
+8. Optimal configuration
+   optimal configuration is up to 103 profiles , up to 300 caches and up to 2020 servers, as it was tested on
+   development test server
+   but any other parameters should be ok
+   
+   if you will have problems with stability or a disconnecting issue or others
+   try to remark parameters in /etc/sysctl.conf
+   let there only TCP KEEPALIVE :
+   net.ipv4.tcp_keepalive_time = 259200
+   net.ipv4.tcp_keepalive_probes = 9
+   net.ipv4.tcp_keepalive_intvl = 75
+   
+   restart server
+   and try to run multics again
+   
+9. Minimal supported Ubuntu is >= 16.04
+    
+   if you have older , you can processed upgrade by:
+   
+   do-release-upgrade 
+
+   Possible known issues:   error while loading shared libraries: libcrypto.so.xx.xx.xx: cannot open shared object file: No such file or directory
+ 
+   try to fix it by:
+   
+   Ubuntu:
+      
+   install package: libssl-dev
+   or
+   install package: openssl-compat
+   
+   Debian and Ubuntu if not helpfull first step:
+   
+   https://packages.debian.org/jessie/amd64/libssl1.0.0/download
+   
+   cd /opt
+   apt-get update
+   apt-get install multiarch-support
+   wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb
+   dpkg -i libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb
+   
+   if problem still persist, continue as below:
+   
+   if still there is this issue (very old systems) , fix it by this process:
+   
+   if it's possible upgrade from very old systems by:
+   
+   do release upgrade
+   
+   or:
+   
+   first try:
+   ubuntu:
+   
+   (only higher and >= 16.04 , older version issue GLIBC, also for compiled libcrypto.so.1.1 and libssl.so.1.1)
+   
+   apt update
+   apt install openssl
+   
+   centos:
+   
+   yum install openssl
+   
+   if it's still this issue present , try this :
+   
+    sudo apt-get update && \
+    sudo apt-get install build-essential software-properties-common -y && \
+    sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y && \
+    sudo apt-get update && \
+    sudo apt-get install gcc-snapshot -y && \   
+    sudo apt-get update && \
+    sudo apt-get install gcc-6 g++-6 -y && \
+    sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6 && \    
+    sudo apt-get install gcc-4.8 g++-4.8 -y && \
+    sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.8
+        
+   or :     
+        
+   https://blacksaildivision.com/how-to-install-openssl-on-centos         (the same way also for ubuntu)
+   
+   start from this point :   (or use lib files attached in zip file)
+   
+   curl -O -L https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.tar.gz
+   
+   if all is installed , on old systems , find libssl.so.1.1 and libcrypto.so.1.1 (it would be in dir: /usr/local/openssl ) and copy them to: 
+   /lib 
+   /lib32
+   /lib64
+   
+   than restart multics , it should fix this problem
+   
+   libcrypto and libssl problem 
+   this version need libssl and libcrypto 
+   than you need this installed on the system 
+   if you will get message:  error while loading shared libraries: libssl.so.xx.xx.xx: cannot open shared object file: No such file or directory
+   or/and
+   error while loading shared libraries: libcrypto.so.xx.xx.xx: cannot open shared object file: No such file or directory
+   try to install these packages  
+   on ubuntu:
+   apt-get update
+   apt-get install openssl
+   apt-get install libssl-dev
+   if this problem still persist , you can create symbolic links to existing version:
+   find / -name "libssl*"
+   look on version name from /usr/lib64 or lib location and create symlink:
+   ln -s /existing/version/libcrypto.xx.xx.xx /existing/version/libcrypto.rquired.version.xx
+   the same for libssl 
+   this should fix the problem
+   
+    libgomp issue : if you will find message like this :
+    error while loading shared libraries: libgomp.so.1: cannot open shared object file: No such file or directory
+    
+    it's needed to install libgomp1 libraries:
+    
+    how to ubuntu:
+    
+    apt install libgomp1
+    
+    centos :
+    
+    yum install libgomp
+      
+                 
+   Mega flush iptables problem 
+   
+   in this version is used xtables lock auto management pooling and this issue shoud be fixed
+   
+   if you have more - a hundreds of iptables records and/or more versions of multics's
+   when on all you have active iptables ON and performing flush iptables
+   there are massive requests to all multis's to run commands to write drop rules
+   this causing multiple access to iptables binary , what may cause problems
+   there is build-in protection , what are locking iptables , as multiple requests have to waiting to finish anothers
+   but it's recommended :
+   when you want run this mega flush of iptables , turn off iptables on all multics's except of first one 
+   there turn of another except of cache iptables
+   than perform flush iptables
+   wait some time when all are processed
+   than turn on also another , for example mgcamd, than , cccam and so on ...
+   with the same way process for another multics , than another ...
+   with this process , it should be ok       
+   
+10. this version is tuned for maximum performance on caches, than it's
+    recommended to use more cache exchanges
+
+11. it's recommended to use not symlinks for more multics's running on the same server, but instead of, use always copy of
+    source binary , as it may sometimes need access to binary and on symlinks may cause problems
+
+  
+    IF YOU PLACE readme.txt file TO YOUR CONFIG PATH , it will appear o Info page automatically  
+
+13. fixed issues:
+    mgcamd / users signals - causing falls 
+    cache / users signals - causing falls
+    editor / removing servers - causing falls
+    editor / removing cacheex servers - causing falls
+    some iptables bug fixes
+    fixed bugs from test version rc02
+    fixed bug showing time on cache page
+    enhancements:
+    debug on config parse error showing full line to find it in config
+    colorize, buttons, and others ...
+    config backup every 5 min , every hour, every week , every 3 months ...
+    threads protection
+    parallelize improved
+    skip cwc checksum test , from predefined hardcoded values , or from config  
+    server loadbalancing for big amount of servers improved
+    restart on loadaverage value possible to set from config
+    email info on fall/restart  
+    todo:
+    check and fix for Total Hits and Total Replies on Cacheex page 
+    
+14. performed test:
+    AMD Ryzen 3 (8core , 32GB RAM)
+    1760 servers / lines
+    134 caches (very powerfull)
+    106 profiles
+    3541/per ports newcamd clients 
+    Average Requests per Minute max : 13600
+    : --passed--   
+         
+15. PRICING:
+
+    ----- unlimited time access ------
+    
+    license: xDecrypt-Digital-Technologies� 
+    
+    100.- Euro
+          
+
+    to activate:
+    
+    1. send email to : selling-manager@xdecrypt-digital-technologies.cloud
+       to request for paypal account
+    2. or:   
+    send email to : selling-manager@xdecrypt-digital-technologies.cloud to ask for licence by bitcoin payment: 
+    
+    always first contact by email before payment, to ensure, all services and support are available ! 
+    
+    DONT SEND ANY MONEY IF NOT APPROVED AND AGREED BY EMAIL FIRST !!!
+    
+    only after email confirmation and approval of payment, you can continue with payment process: 
+    
+    bitcoin account : 1QGSDhGkWoTAVhRhVYh43epXdQwDa7ugFV
+    copy Blockchain link / Transaction ID from your bitcoin app
+    than go to Info page on multics http
+    
+    copy: HW Pairing Data
+    copy: Customer ID 
+    and send these details to email: selling-manager@xdecrypt-digital-technologies.cloud
+    
+    email example:     (if you want also cache for exchange , add there your cache details)
+    
+    unlimited time license
+    HW Pairing Data : 15CF18BEE44AE899DB2578935A537E0EAE0507D6D52358488B7CBAF8A20CB92FAD15F998AA27D7095ECA1517F45B0EE135D30B99278B955ABA7D5CCF33042220
+    Customer ID : EA03C0B09166E407FF5A3CB1940DB2BC542E22F4 
+    Blockchain link / Transaction ID:
+    a1f1e7f1f077414683c7156ee95f6ba2a1bb0b318af16d9a3cfb46a15bffa4cc        
+
+    after payment will be complete to bitcoin address
+    you will get email with HW Pairing Key and cache (if you provided yours)
+
+    put this HWPAIRING KEY to config as example lower and restart multics 
+    (ensure you have there also correct checksum key and checksum file and readme.txt file in config path):
+    
+    example: 
+    HWPAIRING KEY: CA36DDD4372C47A2FBD1F67F3BCA126435C2EC68F1FF00487D602A5B8CB495B4486284F8A5D01B0233E85243EB1B7B953520747F8C8BDD6E0686B3C0E2123338
+            
+    after first start put down somewhere your HW PAIRING DATA !!!  - as after expiration not possible to get them
+    
+    now (rc08) hw pairing data are automatically generated to file under config path : hw_paring_data.txt
+    
+    after expiration start is blocked and it's needed to register , if you have HW PAIRING DATA 
+    
+    
+     

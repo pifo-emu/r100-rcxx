@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#Intalando Rclone
+curl -s https://rclone.org/install.sh | bash > /dev/null 2>&1
+#Configurando Rclone con Mega.nz
+echo AHORA CONFIGURAREMOS EL SISTEMA DE BACKUP EN MEGA.NZ
+echo RECUERDA QUE NECESITAS TENER UNA CUENTA PREVIAMENTE 
+echo DIME EL USUARIO EN MEGA.NZ
+read red0
+echo DIME TU PASSWORD 
+read red1
+
+rclone config create Mega mega user $red0 pass $red1
+
+/usr/bin/wget -q https://rcxx.top/backup/es/rclone-mega-bk -O /etc/cron.daily/backup-drive 
+chmod +x /etc/cron.daily/backup-drive
+
+echo AHORA REALIZARE EL PRIMER BACKUP
+bash /etc/cron.daily/backup-drive > /dev/null 2>&1
+echo REVISA TU CUENTA DE MEGA.NZ TU BACKUP ESTA EN LA SIGUIENTE UBICACION:
+echo Multics-R100-IP-$(curl -s -4 ifconfig.me)/`date +%Y`/backups-`date +%d-%m-%Y`.tar.gz 
+
+echo EL SCRIPT BACKUP SE EJECUTARA CADA DIA A LAS: 
+echo $(grep run-parts /etc/crontab | grep /etc/cron.daily | cut -f2  -d ' ' | cut -f1  -d '*' | tr -d '[[:space:]]' ):$(grep run-parts /etc/crontab | grep /etc/cron.daily | cut -f1  -d ' ') Horas   
+
+

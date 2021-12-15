@@ -1,0 +1,9 @@
+#!/bin/bash
+
+EMUDIR=/usr/local/etc/multics/ #Path of your Multics Configuration 
+email=m2_
+now=$(date +"%d-%m-%Y")
+NOMBRE=/tmp/backups-`date +%d-%m-%Y`.tar.gz
+tar -zcvf $NOMBRE $EMUDIR
+echo "Backup Multics" | mutt -s "Backup Multics ${now}" -a "$NOMBRE" -c ${email} 
+ 

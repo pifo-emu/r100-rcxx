@@ -1,0 +1,326 @@
+#!/bin/sh
+
+clear
+SALIR=0
+OPCION=0
+
+
+if [[ $EUID -ne 0 ]]; then
+        echo "Please run this script as root" 1>&2
+
+
+echo TIENES CONTROL SOBRE EL USUARIO ROOT?
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI TENGO CONTROL SOBRE ROOT \e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;32mNO TENGO CONTROL SOBRE ROOT \e[0m"
+read OPCION
+   case $OPCION in
+
+        1)
+         clear
+         echo OK INICIA COMO ROOT Y VUELVE A EJECUTAR EL SCRIPT 
+         SALIR=1
+         ;;
+
+        2)
+         clear
+         echo OK, ACTIVAREMOS EL USUARIO ROOT
+         echo SEGURAMENTE SE TE PEDIRA LA CONTRASEÃ‘A DEL USURIO $(whoami) PARA CONTINUAR
+         echo AHORA SE TE PEDIRA QUE LE ASIGNES UNA CONTRASEÃ‘A PARA ROOT
+         sudo passwd root
+         sudo sed s/"#PermitRootLogin prohibit-password"/"PermitRootLogin yes"/g -i /etc/ssh/sshd_config
+         sudo service sshd restart
+         echo OK, YA TIENES ROOT ACTIVO INICIA SSH CON ROOT Y VUELVE A EJECUTAR ESTE SCRIPT
+         exit 1
+         ;;
+   esac
+fi
+
+while [ $SALIR -eq 0 ]; do
+echo -e "\e[1;40;32m###############################################################\e[0m"
+echo -e "\e[1;40;32m#               SCRIPT DE INSTALACION r100-rcxx               #\e[0m"
+echo -e "\e[1;40;32m#	       CREATED EXCLUSIVE FOR: MULTICS.ES	      #\e[0m"
+echo -e "\e[1;40;32m#                  ULTIMA EDICION 15-12-2021		      #\e[0m"
+echo -e "\e[1;40;32m###############################################################\e[0m"
+echo -e "\e[38;5;75mMenu:\e[0m"
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mInstalar Multics Server r100-rcxx \e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;32mActualizar Multics Server r100-rcxx \e[0m"
+   echo -e "\e[1;40;37m3) \e[38;5;226mInstalar Sistema de Backup con Rclone y Mega.nz \e[0m"
+   echo -e "\e[1;40;37m4) \e[38;5;226mInstalar Sistema de Backup con E-mail \e[0m"
+   echo -e "\e[1;40;37m5) \e[1;40;36mDatos de Inicio de sesion Multics Server r100-rcxx \e[0m"
+   echo -e "\e[1;40;37m6) \e[1;40;31mSalir\e[0m"
+   echo -e "\e[38;5;75mOpcion seleccionada:\e[0m"
+   read OPCION
+   case $OPCION in
+
+       1)
+clear
+echo INSTALANDO PAQUETES NECESARIOS Y ACTUALIZANDO
+apt-get install aptitude -y > /dev/null 2>&1
+apt-get update > /dev/null 2>&1 && apt-get upgrade -y > /dev/null 2>&1
+echo INSTALANDO PAQUETES NECESARIOS ESTA OPERACION PUEDE TARDAR HASTA 15 MINUTOS
+apt-get install linux-headers-$(uname -r) build-essential unrar-free p7zip p7zip-full -y > /dev/null 2>&1
+apt-get install wget patch unzip zip bash-completion htop git curl -y > /dev/null 2>&1
+apt-get install dos2unix dh-autoreconf help2man libssl-dev librrds-perl libsnmp-dev -y > /dev/null 2>&1
+apt-get install apt-utils dialog usbutils gcc g++ subversion libpcsclite1 libpcsclite-dev libssl-dev cmake make libusb-1.0-0-dev nano -y > /dev/null 2>&1
+apt-get install binutils cpp psmisc -y > /dev/null 2>&1
+apt-get install inetutils-traceroute net-tools -y > /dev/null 2>&1
+apt-get install libgomp1 -y > /dev/null 2>&1
+apt-get install -qq -y nmap > /dev/null 2>&1
+apt-get remove -qq -y exim4 exim4-base exim4-config exim4-daemon-light > /dev/null 2>&1
+rm -r /var/log/exim4/ > /dev/null 2>&1
+
+update-rc.d nfs-common disable > /dev/null 2>&1
+update-rc.d rpcbind disable > /dev/null 2>&1
+
+echo "IPv6 Disabled"
+
+cat <<-EOF >> /etc/sysctl.conf
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+net.ipv6.conf.eth0.disable_ipv6 = 1
+net.ipv6.conf.eth1.disable_ipv6 = 1
+net.ipv6.conf.ppp0.disable_ipv6 = 1
+net.ipv6.conf.tun0.disable_ipv6 = 1
+EOF
+
+sysctl -p > /dev/null 2>&1
+
+echo "Changing Hostname"
+
+read -p "Enter your hostname: " -r primary_domain
+
+cat <<-EOF > /etc/hosts
+127.0.1.1 $primary_domain $primary_domain
+127.0.0.1 localhost
+EOF
+
+cat <<-EOF > /etc/hostname
+$primary_domain
+EOF
+
+
+echo "Installing Dependicies postfix"
+	apt-get install -qq -y dovecot-imapd dovecot-lmtpd  > /dev/null 2>&1
+echo "Installing postfix"
+	DEBIAN_FRONTEND=noninteractive apt-get -qq install postfix -y > /dev/null 2>&1
+	apt-get install -qq -y  postgrey postfix-policyd-spf-python > /dev/null 2>&1
+	apt-get install -qq -y mutt mailutils > /dev/null 2>&1
+
+	#read -p "Enter your mail server's domain: " -r primary_domain
+	echo "Configuring Postfix"
+
+	cat <<-EOF > /etc/postfix/main.cf
+	smtpd_banner = \$myhostname ESMTP \$mail_name (Debian/GNU)
+	biff = no
+	append_dot_mydomain = no
+	readme_directory = no
+	smtpd_tls_cert_file=/etc/letsencrypt/live/${primary_domain}/fullchain.pem
+	smtpd_tls_key_file=/etc/letsencrypt/live/${primary_domain}/privkey.pem
+	smtpd_tls_security_level = may
+	smtp_tls_security_level = encrypt
+	smtpd_tls_session_cache_database = btree:\${data_directory}/smtpd_scache
+	smtp_tls_session_cache_database = btree:\${data_directory}/smtp_scache
+	smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+	myhostname = ${primary_domain}
+	alias_maps = hash:/etc/aliases
+	alias_database = hash:/etc/aliases
+	myorigin = /etc/mailname
+	mydestination = ${primary_domain}, localhost.com, , localhost
+	relayhost =
+	mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+	mailbox_command = procmail -a "\$EXTENSION"
+	mailbox_size_limit = 0
+	recipient_delimiter = +
+	inet_interfaces = all
+	inet_protocols = ipv4
+	milter_default_action = accept
+	milter_protocol = 6
+	smtpd_milters = inet:12301,inet:localhost:54321
+	non_smtpd_milters = inet:12301,inet:localhost:54321
+	EOF
+
+	cat <<-EOF >> /etc/postfix/master.cf
+	submission inet n       -       -       -       -       smtpd
+  -o syslog_name=postfix/submission
+  -o smtpd_tls_wrappermode=no
+  -o smtpd_tls_security_level=encrypt
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_recipient_restrictions=permit_mynetworks,permit_sasl_authenticated,reject
+  -o milter_macro_daemon_name=ORIGINATING
+  -o smtpd_sasl_type=dovecot
+  -o smtpd_sasl_path=private/auth
+	EOF
+
+
+	echo "Restarting Services"
+	service postfix restart
+	service dovecot restart
+
+
+mkdir /root/Backups-multics/  > /dev/null 2>&1
+mkdir /root/Backups-multics/`date +%d-%m-%Y`/  > /dev/null 2>&1
+cp -rf /usr/local/etc/multics /root/Backups-multics/`date +%d-%m-%Y`/  > /dev/null 2>&1
+
+mkdir /usr/local/etc/multics > /dev/null 2>&1
+mkdir /usr/local/etc/script > /dev/null 2>&1
+mkdir /usr/local/etc/multics/FILE > /dev/null 2>&1
+mkdir /usr/local/etc/multics/INCLUDE > /dev/null 2>&1
+mkdir /usr/local/etc/multics/STYLESHEET > /dev/null 2>&1
+mkdir /usr/local/bin > /dev/null 2>&1
+echo DESCARGANDO ARCHIVOS
+
+/usr/bin/wget -q https://rcxx.top/FILE/CCcam.channelinfo -O /usr/local/etc/multics/FILE/CCcam.channelinfo 
+/usr/bin/wget -q https://rcxx.top/FILE/CCcam.providers -O /usr/local/etc/multics/FILE/CCcam.providers 
+/usr/bin/wget -q https://rcxx.top/FILE/CCcam.prio  -O /usr/local/etc/multics/FILE/CCcam.prio 
+/usr/bin/wget -q https://rcxx.top/FILE/ip2country.csv -O /usr/local/etc/multics/FILE/ip2country.csv
+
+echo "
+#!/bin/sh
+
+#Servidor MultiCS SCS
+if ps x |grep -v grep |grep -c /usr/local/bin/multics.es >/dev/null
+then
+echo "multics... ok"
+else
+echo "multics... restarting"
+/usr/local/bin/multics.es -b -C /usr/local/etc/multics/multics.cfg
+sleep 5
+ps -ef | grep multics.es | grep -v "grep" | awk '{print $3}' |  grep '..' | xargs kill
+
+fi
+" > /usr/local/etc/script/multics_restart.sh
+
+sed -i -e  '/multics_restart.sh/d' /var/spool/cron/crontabs/root > /dev/null 2>&1
+
+echo -e "$( crontab -u root -l)\n*/1 * * * * sh /usr/local/etc/script/multics_restart.sh >/dev/null 2>&1" |  crontab -u root -
+
+/etc/init.d/cron restart  >/dev/null 2>&1
+chmod +x -R /usr/local/bin
+chmod +x -R /usr/local/etc
+
+echo -e "\e[1;40;35mQUE MULTICS SERVER QUIERES INSTALAR?\e[0m" 
+echo -e "\e[1;40;37m1) \e[1;40;32mMultics Server r100 Public_Insider\e[0m"
+echo -e "\e[1;40;37m2) \e[1;40;32mMultics Server r100 NotPublic\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo Multics Server r100 Public_Insider 
+       rm /usr/local/bin/multics.es >/dev/null 2>&1
+       /usr/bin/wget -q https://rcxx.top/bin/r100-public -O /usr/local/bin/multics.es 
+       /usr/bin/wget -q https://rcxx.top/es/r100-public -O /tmp/r100-public 
+       bash /tmp/r100-public
+       /usr/bin/wget -q https://rcxx.top/readme-public -O /usr/local/etc/multics/readme.txt 
+       chmod +x -R /usr/local/bin
+       chmod +x -R /usr/local/etc
+       bash /usr/local/etc/script/multics_restart.sh >/dev/null 2>&1
+       rm /tmp/r100-public
+       /usr/bin/wget -q https://rcxx.top/es/reinicio -O /tmp/reinicio
+       bash /tmp/reinicio
+
+
+       ;;
+
+       2) echo Multics Server r100 NotPublic
+       rm /usr/local/bin/multics.es >/dev/null 2>&1
+       /usr/bin/wget -q https://rcxx.top/bin/r100-notpublic -O /usr/local/bin/multics.es 
+       /usr/bin/wget -q https://rcxx.top/es/r100-notpublic -O /tmp/r100-notpublic 
+       bash /tmp/r100-notpublic      
+       /usr/bin/wget -q https://rcxx.top/readme-nopublic -O /usr/local/etc/multics/readme.txt 
+       chmod +x -R /usr/local/bin
+       chmod +x -R /usr/local/etc
+       clear
+       echo TU HW Pairing Data ES:
+       /usr/local/bin/multics.es  -b -C /usr/local/etc/multics/multics.cfg | grep "HW Pairing Data"
+       /usr/local/bin/multics.es  -b -C /usr/local/etc/multics/multics.cfg | grep "HW Pairing Data" > /usr/local/etc/multics/Pairing
+       rm /tmp/r100-notpublic
+       /usr/bin/wget -q https://rcxx.top/es/reinicio -O /tmp/reinicio
+       bash /tmp/reinicio
+
+       ;;
+       
+   esac         
+   	 ;;
+
+2)
+clear
+
+echo -e "\e[1;40;35mQUE MULTICS SERVER QUIERES ACTUALIZAR?\e[0m" 
+echo -e "\e[1;40;37m1) \e[1;40;32mMultics Server r100 Public_Insider \e[0m"
+echo -e "\e[1;40;37m2) \e[1;40;32mMultics Server r100 NotPublic\e[0m"
+
+read red0
+   case $red0 in
+
+
+       1) echo Multics Server r100 Public_Insider 
+       rm /usr/local/bin/multics.es >/dev/null 2>&1
+       /usr/bin/wget -q https://rcxx.top/bin/r100-public -O /usr/local/bin/multics.es 
+       /usr/bin/wget -q https://rcxx.top/readme-public -O /usr/local/etc/multics/readme.txt 
+       chmod +x -R /usr/local/bin
+       chmod +x -R /usr/local/etc	
+	ps -ef | grep multics.es | grep -v grep | awk '{printf $2}' | xargs kill -9
+       bash /usr/local/etc/script/multics_restart.sh >/dev/null 2>&1
+	echo Actualizacion completada 
+	sleep 3
+	clear
+       ;;
+
+       2) echo Multics Server r100 NotPublic
+       rm /usr/local/bin/multics.es >/dev/null 2>&1
+       /usr/bin/wget -q https://rcxx.top/bin/r100-notpublic -O /usr/local/bin/multics.es 
+       /usr/bin/wget -q https://rcxx.top/readme-nopublic -O /usr/local/etc/multics/readme.txt 
+       chmod +x -R /usr/local/bin
+       chmod +x -R /usr/local/etc
+	ps -ef | grep multics.es | grep -v grep | awk '{printf $2}' | xargs kill -9
+       bash /usr/local/etc/script/multics_restart.sh >/dev/null 2>&1
+	echo Actualizacion completada 
+	sleep 3
+	clear
+       ;;
+       
+   esac         
+   	 ;;
+
+
+	3)
+         clear
+       /usr/bin/wget -q https://rcxx.top/backup/es/rclone-mega -O /tmp/rclone
+        bash /tmp/rclone
+	 rm /tmp/rclone     
+         ;;
+
+	4)
+         clear
+         /usr/bin/wget -q https://rcxx.top/backup/es/install-email -O /tmp/email
+         bash /tmp/email
+	 rm /tmp/email  
+         ;;
+
+	5)
+         clear
+        if [ -f /usr/local/etc/multics/.Datos ]
+
+        then
+	cat /usr/local/etc/multics/.Datos
+	cat /usr/local/etc/multics/Pairing
+
+        else
+                echo "Multics Server no esta instalado"
+
+        fi         ;;
+
+	6)
+         clear
+         rm /tmp/install > /dev/null 2>&1
+         SALIR=1
+         ;;
+	 
+       *)
+         clear
+         echo "Opcion erronea";;
+   esac
+done

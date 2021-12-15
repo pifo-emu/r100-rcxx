@@ -1,0 +1,53 @@
+#!/bin/sh
+
+clear
+SALIR=0
+OPCION=0
+
+
+while [ $SALIR -eq 0 ]; do
+echo -e "\e[1;40;32m###############################################################\e[0m"
+echo -e "\e[1;40;32m#               SCRIPT DE INSTALLATION r100-rcxx              #\e[0m"
+echo -e "\e[1;40;32m#	       CREATED EXCLUSIVE FOR: MULTICS.ES	      #\e[0m"
+echo -e "\e[1;40;32m#                  LAST EDITION 14-12-2021		      #\e[0m"
+echo -e "\e[1;40;32m###############################################################\e[0m"
+echo
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSPANISH\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;32mENGLISH \e[0m"
+   echo -e "\e[1;40;37m3) \e[1;40;31mExit\e[0m"
+echo
+   echo -e "\e[38;5;75mSELECTED LANGUAGE:\e[0m"
+   read OPCION
+   case $OPCION in
+
+
+
+	1)
+         clear
+echo -e "\e[1;40;32mSPANISH\e[0m"
+       /usr/bin/wget -q https://rcxx.top/es/install -O /tmp/es.install 
+       bash /tmp/es.install
+	rm /tmp/es.install
+         ;;
+
+	2)
+
+         clear
+echo -e "\e[1;40;32mENGLISH\e[0m"
+       /usr/bin/wget -q https://rcxx.top/en/install -O /tmp/en.install 
+       bash /tmp/en.install
+	rm /tmp/en.install
+         ;;
+
+	3)
+         clear
+         rm /tmp/install > /dev/null 2>&1
+         SALIR=1
+         ;;
+	 
+       *)
+         clear
+         echo "Wrong option";;
+   esac
+done

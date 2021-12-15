@@ -1,0 +1,2756 @@
+ #!/bin/bash 
+
+#
+
+#CACHEEX SERVER
+P0t3=$(shuf -i 20000-55000 -n 1)
+echo $P0t3 > /tmp/port2
+echo $P0t3 > /tmp/fir-port
+
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 5 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo CONFIGURING CACHEEX SERVER
+	echo PORT $suma IS ASSIGNED TO CACHEEX SERVER
+ 
+
+echo "
+#==========================================================
+#==                    CACHEEX SERVER                    ==
+#==========================================================
+CCCAM PORT: $suma
+CCCAM VERSION: 2.0.11
+CCCAM NODEID: bab3fadd2d36f988
+CACHEEX DCW CHECK: YES
+CACHEEX KEEPALIVE: NO
+CACHEEX CCW: YES
+CACHEEX BADCW: NO
+CACHEEX SEND BAD CW: NO
+CACHEEX STEALTHMODE: NO
+ 
+#F: local cacheex3 { cacheex_mode=3; } # mode reverse desde oscam
+ 
+#C: host.dns puerto user pass { cacheex_mode=2; }
+#F: local cacheex3 { cacheex_mode=2; } 
+" > /usr/local/etc/multics/INCLUDE/Cacheex.cfg
+	
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 5 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo CONFIGURING CACHEEX SERVER
+	echo PORT $suma IS ASSIGNED TO CS378X SERVER
+
+echo "
+ 
+#==========================================================
+#==                    CS378X SERVER                     ==
+#==========================================================
+CS378X PORT : $suma
+CS378X KEEPALIVE: YES
+CS378X DCW CHECK: YES
+CS378X CCW: YES
+CS378X BADCW: NO
+CS378X SEND BAD CW: NO
+CS378X STEALTHMODE: NO
+ 
+ 
+#CS378X SERVER: hostname puerto user pass { cacheex_mode=2; }
+#CS378X USER: user pass { cacheex_mode=2; }
+ " >> /usr/local/etc/multics/INCLUDE/Cacheex.cfg
+	
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 5 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo CONFIGURING CACHEEX SERVER
+	echo PORT $suma IS ASSIGNED TO CAMD35 SERVER
+
+
+echo "
+#==========================================================
+#==                    CAMD35 SERVER                     ==
+#==========================================================
+CAMD35 PORT: $suma
+CAMD35 KEEPALIVE:YES
+CAMD35 DCW CHECK:YES
+CAMD35 CCW:YES
+CAMD35 BADCW:NO
+CAMD35 SEND BAD CW:NO
+CAMD35 STEALTHMODE: NO
+ 
+#L: host.dns.net 28892 user passs { cacheex_mode=2; }
+#CAMD35 USER: user pass { cacheex_mode=2; }
+
+" >> /usr/local/etc/multics/INCLUDE/Cacheex.cfg
+
+
+
+#CLUSTERED CACHE
+P0t1=$(shuf -i 5000-9999 -n 1)
+
+echo CONFIGURING CLUSTERED CACHE
+	echo PORT $suma IS ASSIGNED TO CLUSTERED CACHE
+ 
+
+echo "
+#==========================================================
+#== CLUSTERED CACHE (Compatible with CSP cache)          ==
+#==========================================================
+CACHE PORT: $P0t1
+CACHE ALIVETIME: 25
+CACHE FILTER: NO
+CACHE FILTER TIME: 0
+CACHE THRESHOLD: 0 
+CACHE AUTOADD: YES,YES
+CACHE AUTOADD_NO_ENABLE: NO
+CACHE KEEPALIVE: NO
+CACHE DCWCHECK2: NO
+CACHE DCWCHECK3: NO
+#==========================================================
+#==              MULTICS.ES,TELEGRAM                     ==
+#==========================================================
+
+#CACHE PEER: HOST-OSCAM PUERTO-CSP { csp=yes; nominhits=1 } #para subir cache peer desde oscam
+
+#CACHE PEER: host.dns.net $P0t1 #intecmabio de cache entre servidores multics
+" > /usr/local/etc/multics/INCLUDE/Cache.cfg
+
+sleep 5 &&  clear
+
+
+#PROFILES
+
+P0t3=$(shuf -i 20000-55000 -n 1)
+echo $P0t3 > /tmp/port2
+echo $P0t3 > /tmp/fir-port
+
+echo CONFIGURING PROFILES
+
+echo "#==========================================================
+#              PROFILES DEFAULT VALUES                   ==
+#==========================================================
+DEFAULT KEY: 01 02 03 04 05 06 07 08 09 10 11 12 13 14
+DEFAULT DCW MAXFAILED: 0
+DEFAULT SERVER FIRST: 0
+DEFAULT SERVER MAX: 0
+DEFAULT SERVER THRESHOLD: 0
+DEFAULT DCW TIMEOUT: 5500
+DEFAULT CACHE TIMEOUT: 175
+DEFAULT SERVER INTERVAL: 500
+DEFAULT SERVER TIMEOUT: 1000
+DEFAULT CACHE VALIDECMTIME: 0
+DEFAULT CACHEEX VALIDECMTIME: 0
+DEFAULT SERVER VALIDECMTIME: 7000
+DEFAULT DCW RETRY: 0
+DEFAULT RETRY NEWCAMD: 0
+DEFAULT RETRY CCCAM: 0
+DEFAULT DCW CHECK: NO
+DEFAULT ECM CHECK LENGTH: NO
+DEFAULT CACHE SENDREQ: YES
+DEFAULT CACHE RESENDREQ: YES
+DEFAULT CACHE SENDREP: YES
+DEFAULT CACHEEX MAXHOP: 2
+DEFAULT ENABLE CCCAM: YES
+DEFAULT ENABLE MGCAMD: YES
+DEFAULT ENABLE NEWCAMD: YES
+DEFAULT ENABLE CACHE: YES
+DEFAULT ENABLE CACHEEX: YES
+DEFAULT ACCEPT NULL SID: NO
+DEFAULT ACCEPT NULL CAID: YES
+DEFAULT ACCEPT NULL PROVIDER: YES
+DEFAULT CACHE STATIC: YES
+UPDATE ONCHANGE: YES
+LOGLEVEL: 4 # DEBUG
+
+#==========================================================
+#                     PROFILES SCS                       ==
+#==========================================================
+
+" > /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [MOVISTAR] 1810 ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [MOVISTAR]
+	echo THE PORT $P0t3 IS ASSIGNED 
+echo "
+[MOVISTAR]
+PORT: $P0t3
+CAID: 1810
+PROVIDERS: 0
+ECM CHECK LENGTH: NO
+ECM LENGTH: 8E
+DCW CHECK: YES
+DCW CYCLE_CHECK: YES
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 80308B078400,81308B078400
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [ALL SEX 500] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [ALL SEX 500]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+
+echo "
+[ALL SEX 500]
+CAID: 0500
+PROVIDERS: 021700, 025100, 032500, 042200, 041700, 042700, 043800, 050f00, 051e00, 041710, 025900, 042210, 042800, 042810, 042820, 051900 # 043800, 050F00, 051E00
+PORT: $suma
+DCW CHECK: NO
+SERVER THRESHOLD: 0
+CACHE THRESHOLD: 0
+ECM CHECK LENGTH: NO
+SERVER INTERVAL: 100
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [DIGI-N3-ZONHD30W] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [DIGI-N3-ZONHD30W]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+
+
+echo "
+[DIGI-N3-ZONHD30W]
+CAID: 1802
+PROVIDERS: 0
+PORT: $suma
+ECM CHECK LENGTH: NO
+ECM LENGTH: 92
+DCW CHECK: YES
+ECM CHECK: YES
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+DCW ECM_HEADER_ACTIVE: YES
+DCW ECM_HEADER_VALUES: 80308F078D,81308F078D
+SERVER INTERVAL: 100
+CCCAM CHECKDCW: YES
+ACCEPT NULL SID: NO
+ACCEPT NULL CAID: NO
+ACCEPT NULL PROVIDER: NO
+CACHE TIMEOUT: 400
+SERVER TIMEOUT: 3500
+DCW TIMEOUT: 5500
+CACHE VALIDECMTIME: 0
+SERVER VALIDECMTIME: 0
+CACHE SENDREQ: YES
+CACHE RESENDREQ: YES
+CACHE SENDREP: YES
+CACHE STATIC: YES
+ENABLE RADEGAST: NO
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [POLSAT-N3] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [POLSAT-N3]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+
+echo "
+[POLSAT-N3]
+CAID: 1803
+PROVIDERS: 0
+PORT: $suma
+ECM CHECK LENGTH: NO
+ECM LENGTH: 92
+DCW CHECK: NO
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 80008F078D,81008F078D,80308F078D,81308F078D
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [CONAX ALL] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [CONAX ALL]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[CONAX ALL]
+CAID: 0B00
+PROVIDERS: 0
+PORT: $suma
+ECM CHECK LENGTH: NO
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [ TNT SAT- V6 ] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [ TNT SAT- V6 ]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+
+echo "
+[ TNT SAT- V6 ] 
+PORT : $suma
+CAID : 0500
+PROVIDERS : 030B00
+DCW SKIPCWC : YES
+ECM CHECK LENGTH : YES
+ECM LENGTH : 168,D0
+DCW CHECK : YES
+DCW MINTIME : 200
+DCW TIMEOUT : 4000
+SERVER THRESHOLD : 1
+CACHE THRESHOLD : 1
+SERVER INTERVAL : 50
+SERVER TIMEOUT : 3500
+SERVER VALIDECMTIME : 3000
+SID PRIORITY: 0
+SID LIST : 2460,245A,245D,21FD,2330,2457,1F4B,232B,2014,2335,2334,2458,2083,2015,2075,2F6C,2F71,2011,1F45,2654,206D,2081,2076,207B,2F6D,2F72
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [CNL] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [CNL]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+
+echo "
+[CNL]
+CAID: 0100
+PROVIDERS: 6A,6C
+PORT: $suma
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 64
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [NC+] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [NC+]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+
+echo "
+[NC+]
+CAID: 0100
+PROVIDERS: 000068
+PORT: $suma
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 64,67,6A
+DCW CHECK: NO
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 813061006800075C00,803061006800075C00,813067006800075C00,803067006800075C00
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [MAXTV / HD+] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [MAXTV / HD+]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[MAXTV / HD+]
+CAID: 1830
+PROVIDERS: 0
+PORT: $suma
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 92
+DCW CHECK: NO
+SERVER THRESHOLD: 0
+CACHE THRESHOLD: 0
+
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [MEDIASAT] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [MEDIASAT]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+
+echo "
+[MEDIASAT]
+CAID: 1805
+PROVIDERS: 0
+PORT: $suma
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 91
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [POLSAT-1861] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [POLSAT-1861]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[POLSAT-1861]
+CAID: 1861
+PROVIDERS: 0
+PORT: $suma
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 89
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [SKYLINK 0624] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [SKYLINK 0624]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[SKYLINK 0624]
+CAID: 0624
+PROVIDERS: 0
+PORT: $suma
+ECM CHECK LENGTH: NO
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [N-KA] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [N-KA]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[N-KA]
+CAID: 0B01
+PROVIDERS: 0
+PORT: $suma
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 6C,76,88
+
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [FOCUSSAT-0B02-Thor] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [FOCUSSAT-0B02-Thor]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[FOCUSSAT-0B02-Thor]
+PORT: $suma
+CAID: 0B02
+ONID: 0600
+PROVIDERS: 000000
+ACCEPT NULL SID: NO
+ACCEPT NULL CAID: NO
+ACCEPT NULL PROVIDER: YES
+CACHE SENDREQ: YES
+CACHE TIMEOUT: 90
+DCW TIMEOUT: 4500
+DCW MAXFAILED: 0
+DCW RETRY: 0
+DCW CHECK: YES
+DCW HALFNULLED: NO
+DCW SWAP: NO
+ECM CHECK: NO
+ECM CHECK LENGTH: NO
+SERVER INTERVAL: 50
+SERVER TIMEOUT: 2500
+SERVER VALIDECMTIME: 2000
+
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [MEO-PORTUGAL] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [MEO-PORTUGAL]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[MEO-PORTUGAL]
+CAID: 1814
+PROVIDERS: 000000,000007,005221,005211,
+PORT: $suma
+ECM CHECK LENGTH: YES
+ECM LENGTH: 69,6A
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 1
+DCW CHECK: YES
+CCCAM CHECKDCW: YES
+DCW ECM_HEADER LENGTHS: 12,12
+DCW ECM_HEADER_ACTIVE: YES
+DCW ECM_HEADER_VALUES: 80306652,2100075C,00;81306652,2100075C,00
+SERVER INTERVAL: 100
+CACHE TIMEOUT: 400
+SERVER TIMEOUT: 3500
+DCW TIMEOUT: 5500
+CACHE VALIDECMTIME: 0
+SERVER VALIDECMTIME: 0
+CACHE SENDREQ: YES
+CACHE RESENDREQ: YES
+CACHE SENDREP: YES
+CACHE STATIC: YES
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [TIVUSAT] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [TIVUSAT]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[TIVUSAT]
+CAID: 183D
+PROVIDERS: 0
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 91
+PORT: $suma
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [SKYUK] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [SKYUK]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[SKYUK]
+CAID: 0963
+PROVIDERS: 0
+PORT: $suma
+DCW HALFNULLED : YES
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [SKYDE-09C4] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [SKYDE-09C4]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[SKYDE-09C4]
+CAID: 09C4
+PROVIDERS: 0
+PORT: $suma
+DCW SKIPCWC: YES
+DCW HALFNULLED : YES
+DCW CHECK: YES
+SERVER THRESHOLD: 2
+CACHE THRESHOLD: 2
+DCW ECM_HEADER_ACTIVE: YES
+DCW ECM_HEADER_VALUES: 8170A400,8070A400
+ECM CHECK LENGTH: YES
+ECM LENGTH: a7, b3, aa
+DCW TIMEOUT : 600
+DCW RETRY : 0
+DCW SWAP : NO
+DCW MAXFAILED :	0
+SERVER MAX : 5
+SERVER INTERVAL : 100
+SERVER TIMEOUT : 500
+SERVER VALIDECMTIME : 0
+SERVER FIRST : 5
+CACHE TIMEOUT :80
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [HD+] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [HD+]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[HD+]
+CAID: 1843
+PROVIDERS: 0
+PORT: $suma
+ECM CHECK LENGTH: NO
+ECM LENGTH: 89
+DCW CHECK: NO
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 803086078400,813086078400
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [DIGITV-1880-Thor] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [DIGITV-1880-Thor]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[DIGITV-1880-Thor]
+PORT: $suma
+CAID: 1880
+PROVIDERS: 000000
+SID DENYLIST: 0
+ACCEPT NULL PROVIDER: 1
+ACCEPT NULL ONID: 0
+ACCEPT NULL CAID: 0
+ACCEPT NULL SID: 0
+CACHE SENDREQ: YES
+CACHE TIMEOUT: 350
+DCW MAXFAILED: 10
+SERVER FIRST: 0
+SERVER MAX: 10
+DCW CHECK: 1
+DCW TIME: 1
+DCW MINTIME: 500
+DCW TIMEOUT: 2500
+SERVER INTERVAL: 50
+SERVER TIMEOUT: 2500
+SERVER VALIDECMTIME: 2000
+ECM CHECK LENGTH: YES
+ECM LENGTH: 89
+
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [BULSATCOM] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [BULSATCOM]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[BULSATCOM]
+CAID: 4AEE
+PROVIDERS: 0,000001
+PORT: $suma
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 4F
+
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [ORF-0D95] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [ORF-0D95]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[ORF-0D95]
+CAID: 0D95
+PROVIDERS: 0,000004,000010
+PORT: $suma
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 80,B8,F0
+
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [TOTALTV] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [TOTALTV]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[TOTALTV]
+CAID: 091F
+PROVIDERS: 0
+PORT: $suma
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+ECM LENGTH: 77,8F
+DCW CHECK: NO
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 80708C0000010ECA16,81708C0000010ECA16,070740000010ECA16,8170740000010ECA16
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [SRF-CH] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [SRF-CH]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[SRF-CH]
+CAID: 0500
+PROVIDERS: 023800, 040810, 040820, 050800, 050810
+PORT: $suma
+ECM CHECK LENGTH: NO
+DCW CHECK: NO
+#ECM LENGTH: 2A
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [D-SMART] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [D-SMART]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[D-SMART]
+CAID: 092B
+PROVIDERS: 0
+PORT: $suma
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [KABEL-DE] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [KABEL-DE]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[KABEL-DE]
+CAID: 09C7
+PROVIDERS: 0
+PORT: $suma
+DCW HALFNULLED : YES
+
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [KABEL-BW] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [KABEL-BW]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[KABEL-BW]
+CAID: 098E
+PROVIDERS: 0
+PORT: $suma
+DCW HALFNULLED : YES
+
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [UM(UM02)Deutschland (DE) (1838/Cable)] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo "CONFIGURING [UM(UM02)Deutschland (DE) (1838/Cable)]"
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[UM(UM02)Deutschland (DE) (1838/Cable)]
+CAID: 1838
+PROVIDERS: 0
+PORT: $suma
+ECM CHECK LENGTH: NO
+
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [NC+ (1813/Sat)] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo "CONFIGURING [NC+ (1813/Sat)]"
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[NC+ (1813/Sat)]
+PORT: $suma
+CAID: 1813
+PROVIDERS: 0,68
+ECM CHECK LENGTH: NO
+ECM LENGTH: 64
+DCW CHECK: NO
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 813061006800075C,813061006800075C
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [CNL NAGRA 1817] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [CNL NAGRA 1817]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[CNL NAGRA 1817]
+PORT: $suma
+CAID: 1817
+PROVIDERS: 0,6a,7
+ECM CHECK LENGTH: NO
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [SKY LINK - 0D96] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [SKY LINK - 0D96]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[SKY LINK - 0D96]
+PORT: $suma
+ONID: 0001
+CAID: 0D96
+PROVIDERS: 000004
+ACCEPT NULL PROVIDER: 1
+ACCEPT NULL ONID: 0
+ACCEPT NULL CAID: 0
+ACCEPT NULL SID: 0
+ENABLE CACHE: YES
+ENABLE CACHEEX: YES
+ENABLE NEWCAMD: YES
+CACHE SENDREQ: YES
+CACHEEX MAXHOP: 3
+CACHE TIMEOUT: 350
+DCW MAXFAILED: 10
+SERVER FIRST: 0
+SERVER MAX: 10
+DCW CHECK: 0
+DCW TIMEOUT: 2500
+SERVER INTERVAL: 100
+SERVER TIMEOUT: 2500
+SERVER VALIDECMTIME: 2000
+ECM LENGTH: 80
+
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [NC+ 4k NAGRA] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [NC+ 4k NAGRA]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[NC+ 4k NAGRA]
+PORT: $suma
+CAID: 1884
+PROVIDERS: 0,68
+ECM CHECK LENGTH: NO
+DCW CHECK: NO
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [ORF+ 0D98] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [ORF+ 0D98]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[ORF+ 0D98]
+PORT: $suma
+CAID: 0D98
+PROVIDERS: 0,4,8,c,10
+ECM CHECK LENGTH: NO
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [OrangeSK 0609] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [OrangeSK 0609]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[OrangeSK 0609]
+PORT: $suma
+CAID: 0609
+PROVIDERS: 0
+ECM CHECK LENGTH: NO
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 81704D75,80704D75,81705B73,80705B73,81704373,80704373,81705177,80705177,81704773,80704773,81703D73,80703D73,81704D73,80704D73
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [HD+ 1860] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [HD+ 1860]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[HD+ 1860]
+PORT: $suma
+CAID: 1860
+PROVIDERS: 0
+ECM CHECK LENGTH: NO
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [DOLCE RO] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [DOLCE RO]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[DOLCE RO]
+CAID: 092f
+PROVIDERS: 0
+PORT: $suma
+ECM CHECK LENGTH: YES
+ECM LENGTH: 0083
+DCW RETRY: 3
+DCW HALFNULLED: YES
+DCW SWAP: YES
+DCW TIMEOUT: 600
+SERVER INTERVAL: 100
+SERVER TIMEOUT: 600
+CACHE TIMEOUT: 320 
+ACCEPT NULL DCW: YES
+FORCE CRYPTED CW: 1
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [UPC-1815-Thor] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [UPC-1815-Thor]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[UPC-1815-Thor]
+PORT: $suma
+CAID: 1815
+PROVIDERS: 000000
+ECM CHECK LENGTH: YES 
+ECM CHECK : NO
+DCW CHECK: YES
+DCW ECM_HEADER_ACTIVE: NO
+DCW RETRY : 0
+DCW CHECK : YES
+DCW HALFNULLED: NO
+DCW SWAP : YES
+DCW MAXFAILED : 0
+SERVER MAX : 0 # 0
+SERVER INTERVAL: 100
+SERVER TIMEOUT : 1200
+SERVER VALIDECMTIME : 2000
+SERVER FIRST : 0 
+ACCEPT NULL CAID : NO
+ACCEPT NULL PROVIDER : YES
+ACCEPT NULL SID : NO
+
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+
+echo -e "\e[1;40;35mDO YOU WANT TO CONFIGURE? [RCS DIGI TV Thor] ?\e[0m" 
+
+   echo -e "\e[1;40;37m1) \e[1;40;32mSI\e[0m"
+   echo -e "\e[1;40;37m2) \e[1;40;31mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo CONFIGURING [RCS DIGI TV Thor]
+	ip2=$(cat /tmp/fir-port)
+	expr $(tail -1 /tmp/port2) + 1 >> /tmp/port2 
+	suma=$(tail -1 /tmp/port2)
+	echo $ip2,$suma > /tmp/fir-port
+	echo THE PORT $P0t3 IS ASSIGNED 
+ 
+
+echo "
+[RCS DIGI TV Thor]
+PORT: $suma
+CAID: 1802
+PROVIDERS: 000000
+ONID: 0001
+ECM LENGTH: 92
+DCW MINTIME: 0
+ECM CHECK LENGTH: YES
+ECM CHECK: NO
+DCW CHECK: YES
+DCW MAXFAILED: 10
+SERVER MAX: 0
+SERVER FIRST: 5
+DCW TIMEOUT: 3000
+SERVER INTERVAL: 100
+SERVER TIMEOUT: 800
+SERVER VALIDECMTIME: 2000
+CACHE TIMEOUT: 250
+CACHE SENDREQ: YES
+SERVER THRESHOLD: 2
+SERVER CACHE_THRESHOLD: 2
+" >> /usr/local/etc/multics/INCLUDE/Profiles.cfg
+
+           sleep 1 &&  clear ;;
+
+       2) echo SEGUIMOS 
+
+           sleep 1 &&  clear ;;
+       
+esac
+
+#CCCAM SERVER
+P0t3=$(shuf -i 20000-55000 -n 1)
+
+	echo CONFIGURING CCCAM SERVER
+	echo SE A ASIGNADO EL PUERTO $P0t3 A CCCAM SERVER
+ 
+
+echo "
+#==========================================================
+#==                    CCCAM VISIONADO                   ==
+#==========================================================
+CCCAM VERSION: 2.0.11
+CCCAM NODEID: $(shuf -i0000000000000000-9999999999999999 -n1)
+CCCAM KEEPALIVE: NO
+CCCAM PORT: $P0t3
+CCCAM STEALTHMODE: NO
+CCCAM DCW CHECK: YES   
+CCCAM PROFILES: $(cat /tmp/fir-port)
+ 
+#F: user pass # asi damos de todos los perfiles del default de arriba
+
+#F: user pass {aqui dentro podemos poner los perfiles que queremos dar separados por comas}
+" > /usr/local/etc/multics/INCLUDE/CCcam.cfg
+
+#MGCAMD SERVER
+P0t3=$(shuf -i 20000-55000 -n 1)
+
+	echo CONFIGURING MGCAMD SERVER
+	echo SE A ASIGNADO EL PUERTO $P0t3 A MGCAMD SERVER
+ 
+
+echo "
+#==========================================================
+#==              MGCAMD GLOBAL USERS                     ==
+#==========================================================
+MGCAMD PORT: $P0t3
+MGCAMD KEEPALIVE: NO
+MGCAMD DCW CHECK: NO
+MGCAMD SEND BAD CW:NO
+MGCAMD FILTER: ON
+MGCAMD KEY: 01 02 03 04 05 06 07 08 09 10 11 12 13 14
+MGCAMD PROFILES: $(cat /tmp/fir-port)
+
+#==========================================================
+#==              MGCAMD SERVERS                          ==
+#==========================================================
+
+#N: host puerto user pass 01 02 03 04 05 06 07 08 09 10 11 12 13 14
+#MGUSER: user pass #asi dariamos de todo lo que hay en el default profiles
+
+#MGUSER: user pass {aqui dentro podemos poner los perfiles que queremos dar separados por comas}
+" > /usr/local/etc/multics/INCLUDE/MGcam.cfg
+
+
+#NEWCAMD SERVER
+
+	echo CONFIGURING NEWCAMD SERVER
+ 
+
+echo "
+#==========================================================
+#==            NEWCAMD GENERAL OPTIONS                   ==
+#==========================================================
+NEWCAMD CLIENTID: AAAA
+NEWCAMD KEEPALIVE: NO
+NEWCAMD DCW CHECK: NO
+NEWCAMD SEND BAD CW:NO
+NEWCAMD FILTER: ON
+NEWCAMD PROFILES: $(cat /tmp/fir-port)
+
+#==========================================================
+#==              NEWCAMD SERVERS                         ==
+#==========================================================
+
+#N: host puerto user pass 01 02 03 04 05 06 07 08 09 10 11 12 13 14
+#USER: user pass {perfi perfiles a dar separados por comas }
+
+
+#N: host $(head -1 /tmp/port2):$(tail -1 /tmp/port2) user pass 01 02 03 04 05 06 07 08 09 10 11 12 13 14 #asi dariamos de todos los perfiles
+#USER: user pass #asi para dar de todos los perfiles 
+" > /usr/local/etc/multics/INCLUDE/NEWcam.cfg
+
+echo DIME EL USUARIO QUE QUIERES PARA HTTP
+read red0
+
+echo DIME EL PASSWORD QUE QUIERES PARA HTTP
+read red1
+
+echo DIME TU CORREO
+read red2
+
+P0t3=$(shuf -i 2000-55000 -n 1)
+
+echo "
+#==========================================================
+#==                    HTTP SERVER                       ==
+#==========================================================
+HTTP TITLE: "EX-42"
+HTTP PORT: $P0t3
+HTTP USER: $red0
+HTTP PASS: $red1
+HTTP AUTOREFRESH: 1
+HTTP RESTART: ON
+HTTP EDITOR: 1
+HTTP TURBOMODE: OFF
+HTTP IPTABLES: YES
+IPTABLES FLUSHONSTART: NO
+HTTP NETTUNNING: YES
+HTTP NETTUNNINGONSTART: NO
+HTTP PARAMETERS: YES
+ " > /usr/local/etc/multics/multics.cfg
+ 
+/usr/bin/wget -q https://git.io/JGsqU -O /usr/local/etc/multics/FILE/INCLUDES 
+cat /usr/local/etc/multics/FILE/INCLUDES >> /usr/local/etc/multics/multics.cfg
+rm /usr/local/etc/multics/FILE/INCLUDES
+
+echo "
+AUTO_UPDATE ON: NO
+
+CACHE_THRESHOLD_PROFILE ACTIVE: YES
+
+ENCRYPT_CONFIG_FILE_ON_VPS ACTIVE: NO
+
+CUSTOM STRING: -SCS
+
+#CUSTOM ID_CACHE: MultiCS.es-RC38-SCS
+
+EMAIL INFO: $red2
+
+LOADAVERAGE RESTART: 700
+
+TURBOMODE ACTIVE: NO
+
+MASK_AS HB_VXX: 0
+
+#auto disable HB versions HB33 and above, for caches abuse with bad DCW for 09c4,1810,0b00
+AUTO_DISABLE_HB_VERSIONS ACTIVE: NO
+
+DCW_MINTIME_SET MS: 0
+MINTIME: 0
+
+
+RESTART_ON SIGTERM: YES
+RESTART_ON SIGHUP: YES
+RESTART_ON SIGABRT: YES
+RESTART_ON SIGSEGV: YES
+
+#RUN_SCRIPT_ON SIGTERM: /mnt/rd/x/etc/multics4/sendmail_on_sigterm_multics4.sh
+#RUN_SCRIPT_ON SIGHUP: /mnt/rd/x/etc/multics4/sendmail_on_sighup_multics4.sh
+#RUN_SCRIPT_ON SIGABRT: /mnt/rd/x/etc/multics4/sendmail_on_sigabrt_multics4.sh
+#RUN_SCRIPT_ON SIGSEGV: /mnt/rd/x/etc/multics4/sendmail_on_sigsegv_multics4.sh
+
+CACHE MINHITS: 0
+CACHE LOWHITS_AUTODISABLE_AFTERSECONDS: 0
+CACHE CHECK_INACTIVE_EVERYSECONDS: 0
+CACHE REMARK_INACTIVE_AFTERSECONDS_INACTIVITY: 0
+
+IPTABLES CACHE: ON
+IPTABLES NEWCAMD: ON
+IPTABLES MGCAMD: ON
+IPTABLES CCCAM: ON
+IPTABLES CS378X: OFF
+IPTABLES SOFTMODE: ON
+IPTABLES FORCEMODE: OFF
+
+#experimental for testing , you can disable servers with 0% ecm ok and <10% ecm ok
+AUTO_DISABLE_SERVERS ZERO: NO
+AUTO_DISABLE_SERVERS ZERO_AFTER_SECONDS: 0
+AUTO_DISABLE_SERVERS ZERO_TEN: NO
+AUTO_DISABLE_SERVERS ZERO_TEN_AFTER_SECONDS: 0
+
+AUTO_DISABLE_BAD_RECONNECTION_USERS GENERIC_COUNT: 500
+AUTO_DISABLE_BAD_RECONNECTION_USERS UNIQ_COUNT: 100
+
+#experimental for testing , you can turn on reconnections monitoring , for now working only newecamd, for details see readme.txt
+AUTO_DISABLE_BAD_RECONNECTION_USERS NEWCAMD: NO
+AUTO_DISABLE_BAD_RECONNECTION_USERS MGCAMD: NO
+AUTO_DISABLE_BAD_RECONNECTION_USERS CCCAM: NO
+AUTO_DISABLE_BAD_RECONNECTION_USERS CS378X: NO
+
+#values lower as 400 only log
+AUTO_DISABLE_BAD_RECONNECTION_USERS NEWCAMD_SECONDS: 0
+#for now working only newcamd option
+AUTO_DISABLE_BAD_RECONNECTION_USERS MGCAMD_SECONDS: 0
+AUTO_DISABLE_BAD_RECONNECTION_USERS CCCAM_SECONDS: 0
+AUTO_DISABLE_BAD_RECONNECTION_USERS CS378X_SECONDS: 0
+AUTO_DISABLE_BAD_RECONNECTION_USERS DISABLE_COUNT_PER_HOUR_MORE_AS: 600 
+
+#working only on low level servers, otherwise may cause falls > srv->busy , than don't use higher values on very big and fast servers
+LOADBALANCER MAX_SERVERS: 0
+LOADBALANCER FASTEST_SERVER_FIRST: NO
+LOADBALANCER FASTEST_MAXIMUM_ECM_TIME: 0
+#this parameter is valid also for validecmtime
+LOADBALANCER INIT_AFTER_ECMOK: 10
+#time for users are moving between connected and active
+LOADBALANCER ACTIVE_VALUE: 20000
+#with this parameter validecmtime loadblancer cycles are active, if validecmtime is set and adecvate server is not found , than are processed cycles till found server
+LOADBALANCER CYCLES_ACTIVE: NO
+LOADBALANCER TWO_PLUS_MILISECONDS: 300
+LOADBALANCER THREE_PLUS_MILISECONDS: 400
+LOADBALANCER FOUR_PLUS_MILISECONDS: 500
+LOADBALANCER FIVE_PLUS_MILISECONDS: 3000
+
+#if you have oscam.fakecws file in config_path, it's reading it on start and sort all and nds, you can here turn on control for fake cws, recommended only NDS
+OSCAM_FAKE_CWS LOG_ACTIVE: NO
+OSCAM_FAKE_CWS LOG_TO_FILE_ACTIVE: NO
+OSCAM_FAKE_CWS LOG_FILE_REMOVE_AFTER_SECONDS: 604800
+OSCAM_FAKE_CWS ACTIVE_ALL: NO
+OSCAM_FAKE_CWS ACTIVE_NDS: NO
+OSCAM_FAKE_CWS REVERSE: NO
+
+#HWPAIRING KEY: USAR SOLO PARA LA VERSION DE PAGO,EN LA PUBLICA NO ES NECESARIO
+
+" >> /usr/local/etc/multics/multics.cfg
+
+echo "
+#################PROFILES#######################
+
+[MOVIESTAR]
+PORT: 17000
+CAID: 1810
+PROVIDERS: 0
+ECM CHECK LENGTH: NO
+ECM LENGTH: 8E
+DCW CHECK: YES
+DCW CYCLE_CHECK: YES
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 80308B078400,81308B078400
+USER: osct osct
+
+[DIGI-N3-ZONHD30W]
+CAID: 1802
+PROVIDERS: 000000
+PORT: 17001
+ECM CHECK LENGTH: NO
+ECM LENGTH: 92
+DCW CHECK: NO
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 80308F078D,81308F078D
+USER: osct osct
+
+[POLSAT-N3]
+CAID: 1803
+PROVIDERS: 000000
+PORT: 17002
+ECM CHECK LENGTH: NO
+ECM LENGTH: 92
+DCW CHECK: NO
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 80008F078D,81008F078D,80308F078D,81308F078D
+USER: oscx1803m4 oscx1803m4
+
+[CONAX ALL]
+CAID: 0B00
+PROVIDERS: 0
+PORT: 17003
+ECM CHECK LENGTH: NO
+USER: oscx0b00m4 oscx0b00m4
+
+###########################
+[TNT-V6]
+###########################
+PORT : 17004
+CAID : 0500
+PROVIDERS : 030B00
+DCW SKIPCWC: YES
+ECM CHECK LENGTH : YES
+ECM LENGTH : 168
+DCW CHECK : YES
+SERVER THRESHOLD : 0
+SERVER CACHE_THRESHOLD: 0
+DCW ECM_HEADER_ACTIVE: YES
+DCW ECM_HEADER_VALUES: 807165018038D202131A4007030B000807CC00DE045F,817165018038D202131A4007030B000807CC00DE045F
+SERVER INTERVAL : 500
+SERVER TIMEOUT : 2000
+SERVER VALIDECMTIME : 2500 
+USER: osct osct
+
+[ORF-I]
+CAID: 0648
+PROVIDERS: 000000
+PORT: 17005
+ECM CHECK LENGTH: NO
+USER: os098 os098
+
+[ VIA ]
+CAID: 0500
+PROVIDERS: 051700,020A00,030A00,031000
+PORT: 17006
+ECM CHECK LENGTH: NO
+USER: via via
+
+[REDLIGHT]
+CAID: 0500
+PROVIDERS: 043800
+PORT: 17007
+DCW CHECK: NO
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+ECM CHECK LENGTH: NO
+USER: osct osct
+
+[CNL]
+CAID: 0100
+PROVIDERS: 6A,6C
+PORT: 17008
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 64
+USER: oscam-ecm-% oscam-ecm-%
+
+[NC+]
+CAID: 0100
+PROVIDERS: 000068
+PORT: 17009
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 64,67,6A
+DCW CHECK: NO
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 813061006800075C00,803061006800075C00,813067006800075C00,803067006800075C00
+USER: m40100 m40100
+
+[SKYDE098C]
+CAID: 098C
+PROVIDERS: 0
+PORT: 17010
+ECM CHECK LENGTH: NO
+ECM LENGTH: 9F,98
+DCW SKIPCWC: YES
+DCW HALFNULLED : YES
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+
+[TRING]
+CAID: 0BAA
+PROVIDERS: 000000
+PORT: 17011
+ECM CHECK LENGTH: NO
+ECM LENGTH: 67,6C
+USER: tring_int_n tring_int_n
+
+[MAXTV / HD+]
+CAID: 1830
+PROVIDERS: 0
+PORT: 17012
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 92
+DCW CHECK: NO
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+USER: osct osct
+
+[MEDIASAT]
+CAID: 1805
+PROVIDERS: 0
+PORT: 17013
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 91
+USER: media media
+
+[ZIGGO NL CABLE]
+CAID: 0604
+PROVIDERS: 0
+PORT: 17014
+ECM CHECK LENGTH: NO
+USER: 0604 0604
+
+[POLSAT-1861]
+CAID: 1861
+PROVIDERS: 0
+PORT: 17015
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 89
+USER: 1861 1861
+
+[SKYLINK 0624]
+CAID: 0624
+PROVIDERS: 0
+PORT: 17016
+ECM CHECK LENGTH: NO
+USER: oscx0624m4 oscx0624m4
+
+[VIASAT-093E]
+CAID: 093E
+PROVIDERS: 000000
+PORT: 17017
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+ECM LENGTH: 84,88,98,AA
+USER: viasat_int_n_93 viasat_int_n_93
+
+[VIASAT-090F]
+CAID: 090F
+PROVIDERS: 000000
+PORT: 17018
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 73,84,94,95,96,99,A6,B7
+USER: viasat_int_n_f viasat_int_n_f
+
+[N-KA]
+CAID: 0B01
+PROVIDERS: 000000
+PORT: 17019
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 6C,76,88
+USER: oscx0b01m4 oscx0b01m4
+
+[FOCUSSAT]
+CAID: 0B02
+PROVIDERS: 000000
+PORT: 17020
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 4E,53,60,65,72,84,9C,97,8A,A9
+USER: oscx0b02m4 oscx0b02m4
+
+[SFR Sports 5W]
+CAID: 0500
+PROVIDERS: 041970
+PORT: 17021
+USER: sfrsports sfrsports
+
+[TIVU-RAI]
+CAID: 183E
+PROVIDERS: 000000
+PORT: 17022
+ECM CHECK LENGTH: NO
+USER: oscx183e oscx183e
+
+[MEO-PORTUGAL]
+CAID: 1814
+PROVIDERS: 000000,000007,005221,005211
+PORT: 17023
+ECM CHECK LENGTH: YES
+ECM LENGTH: 69,6A
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+DCW CHECK: NO
+DCW ECM_HEADER_ACTIVE: YES
+DCW ECM_HEADER_VALUES: 803066522100075C00,813066522100075C00
+USER: osct osct
+
+[TIVUSAT]
+CAID: 183D
+PROVIDERS: 000000
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 91
+PORT: 17024
+USER: os1183dn1 os1183dn1
+USER: 183d 183d
+
+[SKYUK]
+CAID: 0963
+PROVIDERS: 000000
+PORT: 17025
+DCW HALFNULLED : YES
+USER: ukaa ukaa
+
+[SKYDE-09C4]
+CAID: 09C4
+PROVIDERS: 0
+PORT: 17026
+DCW SKIPCWC: YES
+DCW HALFNULLED : YES
+DCW CHECK: NO
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+DCW ECM_HEADER_ACTIVE: YES
+DCW ECM_HEADER_VALUES: 8170A400,8070A400
+ECM CHECK LENGTH: YES
+ECM LENGTH: A7
+USER: osct osct
+
+[HD+]
+CAID: 1843
+PROVIDERS: 0
+PORT: 17027
+ECM CHECK LENGTH: NO
+ECM LENGTH: 89
+DCW CHECK: NO
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 803086078400,813086078400
+USER: osct osct
+
+[DIGITV-N4]
+CAID: 1880
+PROVIDERS: 0
+PORT: 17028
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 89
+USER: oscx1880m4 oscx1880m4
+
+[BULSATCOM]
+CAID: 4AEE
+PROVIDERS: 0,000001
+PORT: 17029
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 4F
+USER: oscx4e oscx4e
+
+[FRANSAT-V4]
+CAID: 0500
+ECM CHECK LENGTH: NO
+PROVIDERS: 041900,041910,041920,041930,041940
+PORT: 17030
+DCW CHECK: NO
+
+[ORANGE-V4-V5-V6]
+CAID: 0500
+DCW CHECK: NO
+PROVIDERS: 032900,032910,032920,032930,032940,032950
+PORT: 17031
+ECM CHECK LENGTH: NO
+
+[ORF-0D95]
+CAID: 0D95
+PROVIDERS: 0,000004,000010
+PORT: 17032
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 80,B8,F0
+USER: osct osct
+
+[SKYLINK-0D96]
+CAID: 0D96
+PROVIDERS: 0,000004,000008,00000c,000010
+PORT: 17033
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 80,B8,7B,7C
+USER: oscam-ecm-% oscam-ecm-%
+
+[FRANSAT-V5]
+CAID: 0500
+PROVIDERS: 041950
+PORT: 17034
+DCW CHECK: NO
+ECM CHECK LENGTH: NO
+ECM LENGTH: 100 
+USER: osct osct
+
+[Moviestar SECA]
+CAID: 0100
+PROVIDERS: 004001,004101,004106,004108,005001
+PORT: 17035
+ECM CHECK LENGTH: NO
+
+[UPC-0D97]
+CAID: 0D97
+PROVIDERS: 0,000004,000008,00000C,000010
+PORT: 17036
+ECM CHECK LENGTH: NO
+#ECM LENGTH: B8,F0,80
+USER: osct osct
+
+[PINK-0629 16E]
+CAID: 0629
+PROVIDERS: 000000
+PORT: 17037
+ECM CHECK LENGTH: NO
+#ECM LENGTH: 3E
+USER: oscam-ecm-% oscam-ecm-%
+
+[DIGITV-SK]
+CAID: 1882
+PROVIDERS: 000000,008921,00AA80
+PORT: 17038
+ECM CHECK LENGTH: NO
+
+[TOTALTV]
+CAID: 091F
+PROVIDERS: 000000
+PORT: 17039
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+ECM LENGTH: 77,8F
+DCW CHECK: NO
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 80708C0000010ECA16,81708C0000010ECA16,070740000010ECA16,8170740000010ECA16
+USER: osct osct
+
+[SRF-CH]
+CAID: 0500
+PROVIDERS: 023800, 040810, 040820, 050800, 050810
+PORT: 17040
+ECM CHECK LENGTH: NO
+DCW CHECK: NO
+#ECM LENGTH: 2A
+USER: os10500n1 os10500n1
+
+[YESTV]
+CAID: 090D
+PROVIDERS: 0
+PORT: 17041
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+DCW CHECK: NO
+USER: osct osct
+
+[OTE]
+CAID: 09BE
+DCW HALFNULLED : YES
+PROVIDERS: 000000
+PORT: 17042
+DCW CHECK: NO
+ECM CHECK LENGTH: NO
+USER: ote ote
+
+[D-SMART]
+CAID: 092B
+PROVIDERS: 000000
+PORT: 17043
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+USER: dsmart dsmart
+
+[BISTV-V5]
+CAID: 0500
+PROVIDERS: 042820,042840
+DCW CHECK: NO
+DCW SKIPCWC: NO
+PORT: 17044
+ECM CHECK LENGTH: NO
+USER: bistvv5 bistvv5
+
+[KABEL-DE]
+CAID: 09C7
+PROVIDERS: 000000
+PORT: 17045
+DCW HALFNULLED : YES
+USER: oscx09c7m4 oscx09c7m4
+
+[KABEL-BW]
+CAID: 098E
+PROVIDERS: 000000
+PORT: 17046
+DCW HALFNULLED : YES
+USER: os1098en1 os1098en1
+
+[0500 - 050F00]
+CAID: 0500
+PROVIDERS: 050F00
+PORT: 17047
+ECM CHECK LENGTH: NO
+DCW CHECK: NO
+DCW SKIPCWC: NO
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+USER: osct osct
+
+[ZEETV]
+CAID: 0608
+PROVIDERS: 000000
+PORT: 17048
+ECM CHECK LENGTH: NO
+ECM LENGTH: 34
+
+[MAGIO]
+CAID: 0B1C
+PROVIDERS: 000000,1010,1020,1030,1040,1050,1060,1070,1080
+PORT: 17049
+ECM CHECK LENGTH: NO
+
+[EVISION]
+CAID: 0B1D
+PROVIDERS: 000000
+PORT: 17050
+ECM CHECK LENGTH: NO
+
+[BisTV-V4]
+CAID: 0500
+PROVIDERS: 42800,42810
+DCW CHECK: NO
+PORT: 17051
+ECM CHECK LENGTH: NO
+
+[TELESAT N 1819]
+CAID: 1819
+PROVIDERS: 0,6d,2006d
+PORT: 17052
+DCW SKIPCWC: NO
+DCW CHECK: NO
+ECM CHECK LENGTH: NO
+ECM LENGTH: 64
+
+[SRFCHV6-60200]
+CAID: 0500
+PROVIDERS: 060200,060210,060220,060230,060240
+PORT: 17053
+DCW CHECK: NO
+ECM CHECK LENGTH: NO
+DCW CHECK: NO
+USER: tst123 tst123
+
+[KABELKIOSK]
+CAID: 09AF
+PROVIDERS: 000000
+PORT: 17054
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+
+[DIGITURK-0664]
+CAID: 0664
+PROVIDERS: 000000
+PORT: 17055
+ECM CHECK LENGTH: NO
+
+[DIGITURK-0D00]
+CAID: 0D00
+PROVIDERS: 0000C0,0000C4,0000C8,0000CC
+PORT: 17056
+ECM CHECK LENGTH: NO
+
+[MEO SECA]
+PORT: 17057
+CAID: 0100
+PROVIDERS: 005211,005221,005225
+ECM CHECK LENGTH: NO
+
+[CANALSAT-V4-V5-V6]
+CAID: 0500
+PROVIDERS: 032820,032830,032840,032920,032940,040F40
+PORT: 17058
+DCW SKIPCWC: YES
+ECM CHECK LENGTH: NO
+DCW CHECK: NO
+
+[VIRGIN-MEDIA-UK-CABLE]
+CAID: 1841
+PROVIDERS: 0
+PORT: 17059
+ECM CHECK LENGTH: NO
+
+[PINK-0911]
+CAID: 0911
+PROVIDERS: 000000
+PORT: 17060
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+
+[Viasat Ukraine (UA) (0931:0000)]
+CAID: 0931
+PROVIDERS: 000000
+PORT: 17061
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+
+[FOXTEL (AU) (096C:0000)]
+CAID: 096C
+PROVIDERS: 000000
+PORT: 17062
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+
+[UPC (0653:FFFFFF)]
+CAID: 0653
+PROVIDERS: 0000,0001,0002,0003,0004,FFFFFF
+PORT: 17063
+ECM CHECK LENGTH: NO
+USER: 0653 0653
+
+[Astro (DE) (09AC:0000)]
+CAID: 09AC
+PROVIDERS: 000000
+PORT: 17064
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+
+[Teleclub Schweiz (Cable) (CH) (09B6:0000)]
+CAID: 09B6
+PROVIDERS: 000000
+PORT: 17065
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+
+[REDLIGHT ELITE HD FR]
+CAID: 0628
+PROVIDERS: 0000,0001,0002,0003,0004,000B00
+PORT: 17066
+ECM CHECK LENGTH: NO
+
+[XtraTV (UA) (0B0F:000000)]
+CAID: 0B0F
+PROVIDERS: 000000
+PORT: 17067
+ECM CHECK LENGTH: NO
+
+[UPC-Cablecom (CH) (1801/Cable)]
+CAID: 1801
+PROVIDERS: 007201,007301,006411,006511,007801,007901
+PORT: 17068
+ECM CHECK LENGTH: NO
+
+[Sun Direct (93E)]
+PORT: 17069
+USER: sun sun
+CAID: 0649
+PROVIDERS: 0,0001,0002,0003,0004
+ECM CHECK LENGTH: NO
+
+[Irdeto 0602]
+CAID: 0602
+PROVIDERS: 0,2,5,6,1a,ffff,11,18,25,27,2f,32,42,60
+PORT: 17070
+ECM CHECK LENGTH: NO
+
+[DTV Dialog TV Irdeto 0631]
+PORT: 17071
+USER: dialog dialog
+CAID: 0631
+PROVIDERS: 0
+ECM CHECK LENGTH: NO
+
+[Skynet 76,5E ]
+PORT: 17072
+USER: skynet skynet
+CAID: 4a02
+PROVIDERS: 0
+ECM CHECK LENGTH: NO
+
+[Dahlia Card (CAID: 0662 ACS V5.7))]
+PORT: 17073
+USER: dahila dahila
+CAID: 0662
+PROVIDERS: 0
+ECM CHECK LENGTH: NO
+
+[MOSC SECA Cards]
+PORT: 17074
+CAID: 0100
+PROVIDERS: A821,A825,156,30,81
+ECM CHECK LENGTH: NO
+
+[VIA Others -1]
+PORT: 17075
+CAID: 0500
+PROVIDERS: 22e00,22e10,20a00,20a10,20a20,20a30,20a40,fff4a0,020A00,020A10,020A20,020A30,020A40,025900,025910,041700
+ECM CHECK LENGTH: NO
+
+[TELESAT-01006D]
+CAID: 0100
+PROVIDERS: 6d
+PORT: 17076
+DCW SKIPCWC: NO
+ECM CHECK LENGTH: NO
+
+[Dish Network N3 (1816/Sat)]
+PORT: 17077
+CAID: 1816
+PROVIDERS: 0,1,101
+ECM CHECK LENGTH: NO
+
+####################################
+[Canalsat FRANCE Nagra 1811 ]######
+####################################
+PORT: 17078
+CAID: 1811
+PROVIDERS: 0
+DCW SKIPCWC: YES
+ECM CHECK LENGTH: NO
+DCW CHECK: NO
+
+####################################
+[Canalsat FRANCE Nagra 1863]      ##
+####################################
+PORT: 17079
+CAID: 1863
+PROVIDERS: 0,3342,3343
+DCW SKIPCWC: YES
+ECM CHECK LENGTH: NO
+DCW CHECK: NO
+
+[UM/KD/Sky Deutschland (DE)(1722/Cable I02/I12/D01/D02)]
+CAID: 1722
+PROVIDERS: 000000
+PORT: 17080
+ECM CHECK LENGTH: NO
+USER: os11722 os11722
+
+[UM(UM02)Deutschland (DE) (1838/Cable)]
+CAID: 1838
+PROVIDERS: 0
+PORT: 17081
+ECM CHECK LENGTH: NO
+USER: os11838 os11838
+
+[NC+ (1813/Sat)]
+PORT: 17082
+CAID: 1813
+PROVIDERS: 0,68
+ECM CHECK LENGTH: NO
+ECM LENGTH: 64
+DCW CHECK: NO
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 813061006800075C,813061006800075C
+USER: osct osct
+
+[CNL NAGRA 1817]
+PORT: 17083
+CAID: 1817
+PROVIDERS: 0,6a,7
+ECM CHECK LENGTH: NO
+
+[TVVL NAGRA 1818]
+PORT: 17084
+CAID: 1818
+PROVIDERS: 0,6c,7
+ECM CHECK LENGTH: NO
+
+[NC+ 4k NAGRA]
+PORT: 17085
+CAID: 1884
+PROVIDERS: 0,68
+ECM CHECK LENGTH: NO
+DCW CHECK: NO
+
+[ORF+ 0D98]
+PORT: 17086
+CAID: 0D98
+PROVIDERS: 0,4,8,c,10
+ECM CHECK LENGTH: NO
+
+[OrangeSK 0609]
+PORT: 17087
+CAID: 0609
+PROVIDERS: 0
+SERVER THRESHOLD: 0
+SERVER CACHE_THRESHOLD: 0
+ECM CHECK LENGTH: NO
+DCW ECM_HEADER_ACTIVE: NO
+DCW ECM_HEADER_VALUES: 81704D75,80704D75,81705B73,80705B73,81704373,80704373,81705177,80705177,81704773,80704773,81703D73,80703D73,81704D73,80704D73
+USER: mtest mtest
+
+[HD+ 1860]
+PORT: 17088
+CAID: 1860
+PROVIDERS: 0
+ECM CHECK LENGTH: NO
+USER: osct osct
+
+[SKYITA]
+CAID: 09CD
+PROVIDERS: 000000
+PORT: 17089
+DCW HALFNULLED : YES
+ECM CHECK LENGTH: NO
+DCW SWAP : YES
+
+[TIN 0500 9E]
+PORT: 17090
+CAID: 0500
+PROVIDERS: 42c00,21200,24300
+ECM CHECK LENGTH: NO
+
+[DOLCE TV 39E]
+PORT: 17091
+CAID: 092F
+PROVIDERS: 0
+ECM CHECK LENGTH: NO
+#DCW SWAP: YES
+DCW HALFNULLED: YES
+
+[VIASAT-0940]
+CAID: 0940
+PROVIDERS: 000000
+PORT: 17092
+ECM CHECK LENGTH: NO
+DCW SWAP : YES
+DCW HALFNULLED : YES
+
+[VIDEOCON - 0987]
+CAID: 0987
+PROVIDERS: 000000
+PORT: 17093
+ECM CHECK LENGTH: NO
+DCW SWAP : YES
+DCW HALFNULLED : YES
+
+[SKYUK - 0960]
+CAID: 0960
+PROVIDERS: 000000
+PORT: 17094
+ECM CHECK LENGTH: NO
+DCW SWAP : YES
+DCW HALFNULLED : YES
+
+[0680 - UN]
+CAID: 0680
+PROVIDERS: 000000
+PORT: 17095
+ECM CHECK LENGTH: NO
+
+[UPC - 1815]
+CAID: 1815
+PROVIDERS: 000000
+PORT: 17096
+ECM CHECK LENGTH: NO
+USER: m4csx1815 m4csx1815
+
+[MYZEN 4K]
+CAID: 0500
+PROVIDERS: 051A10
+PORT: 17097
+ECM CHECK LENGTH: NO
+
+[Arqiva (9E)]
+CAID: 0500
+PROVIDERS: 042600,042620
+PORT: 17098
+ECM CHECK LENGTH: NO
+
+[TRK/Racing (5E) Setanta (31.5E)]
+CAID: 0500
+PROVIDERS: 041200
+PORT: 17099
+ECM CHECK LENGTH: NO
+
+[Love Nature]
+CAID: 0500
+PROVIDERS: 051A00, 051A10, 051A20, 051A40
+PORT: 17100
+ECM CHECK LENGTH: NO
+
+[VIA Others -2]
+PORT: 17101
+CAID: 0500
+PROVIDERS: 041710,042700,040210,032200,032000,031d00,024b00,050100,042300,022200,022010,022030,022050,020910,020910,020810,042400,032500
+ECM CHECK LENGTH: NO
+
+[VIA Others -3]
+PORT: 17102
+CAID: 0500
+PROVIDERS: 042400,032500, 043330, 033A00
+ECM CHECK LENGTH: NO
+   
+[OSN 1708]
+PORT: 17103
+CAID: 1708
+PROVIDERS: 000000
+DCW SKIPCWC: YES
+DCW HALFNULLED : YES
+
+[Bein Sport 7W 09B5]
+PORT: 17104
+CAID: 09B5
+PROVIDERS: 000000
+DCW HALFNULLED : YES
+
+[XtraTv-1712]
+PORT: 17105
+CAID: 1712
+PROVIDERS: 000000
+DCW SKIPCWC: YES
+DCW HALFNULLED : YES
+
+[Airtel-09AA]
+PORT: 17106
+CAID: 09AA
+PROVIDERS: 000000
+USER: amtopm amtopm
+DCW HALFNULLED : YES
+
+[Polaris 5581]
+PORT: 17107
+CAID: 5581
+PROVIDERS: 000000
+
+[OSN 1709]
+PORT: 17108
+CAID: 1709
+PROVIDERS: 000000
+DCW SKIPCWC: YES
+DCW HALFNULLED : YES
+
+[Videocon 0639]
+PORT: 17109
+CAID: 0639
+PROVIDERS: 000000
+
+[Vivacom 09BD]
+PORT: 17110
+CAID: 09BD
+PROVIDERS: 000000
+DCW HALFNULLED : YES
+
+[Austria 0650]
+PORT: 17111
+CAID: 0650
+PROVIDERS: 000000
+USER: osct osct
+" > /usr/local/etc/multics/.profiles
+
+echo "
+You have successfully installed r100 rcxx on your server.
+
+Login with the following credentials:
+
+    URL:  http://$(curl -s -4 ifconfig.me):$P0t3
+    Username:   $red0
+    Password:   $red1
+" > /usr/local/etc/multics/.Datos
+clear
+/usr/local/bin/multics.es -C /usr/local/etc/multics/multics.cfg | grep "HW Pairing Data" > /usr/local/etc/multics/Pairing
+cat /usr/local/etc/multics/.Datos
+cat /usr/local/etc/multics/Pairing
+

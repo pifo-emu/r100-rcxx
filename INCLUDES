@@ -1,0 +1,19 @@
+#==========================================================
+#==                INCLUDES                              ==
+#==========================================================
+INCLUDE "/usr/local/etc/multics/INCLUDE/CCcam.cfg"
+INCLUDE "/usr/local/etc/multics/INCLUDE/Cache.cfg"
+INCLUDE "/usr/local/etc/multics/INCLUDE/Cacheex.cfg"
+INCLUDE "/usr/local/etc/multics/INCLUDE/NEWcam.cfg"
+INCLUDE "/usr/local/etc/multics/INCLUDE/MGcam.cfg"
+INCLUDE "/usr/local/etc/multics/INCLUDE/Profiles.cfg"
+
+#==========================================================
+#==                  FILES                               ==
+#==========================================================
+FILE CHANNELINFO: "/usr/local/etc/multics/FILE/CCcam.channelinfo"  
+FILE PROVIDERINFO: "/usr/local/etc/multics/FILE/CCcam.providers"
+FILE CCCAMPRIO: "/usr/local/etc/multics/FILE/CCcam.prio" 
+FILE IP2COUNTRY: "/usr/local/etc/multics/FILE/ip2country.csv"
+#FILE STYLESHEET: "/usr/local/etc/multics/STYLESHEET/ServanCS.css"
+

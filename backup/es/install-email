@@ -1,0 +1,127 @@
+#!/bin/bash
+
+
+echo "Updating and Installing Dependicies"
+apt-get install -qq -y nmap > /dev/null 2>&1
+apt-get remove -qq -y exim4 exim4-base exim4-config exim4-daemon-light > /dev/null 2>&1
+rm -r /var/log/exim4/ > /dev/null 2>&1
+
+update-rc.d nfs-common disable > /dev/null 2>&1
+update-rc.d rpcbind disable > /dev/null 2>&1
+
+echo "IPv6 Disabled"
+
+cat <<-EOF >> /etc/sysctl.conf
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+net.ipv6.conf.eth0.disable_ipv6 = 1
+net.ipv6.conf.eth1.disable_ipv6 = 1
+net.ipv6.conf.ppp0.disable_ipv6 = 1
+net.ipv6.conf.tun0.disable_ipv6 = 1
+EOF
+
+sysctl -p > /dev/null 2>&1
+
+echo "Changing Hostname"
+
+read -p "Enter your hostname: " -r primary_domain
+
+cat <<-EOF > /etc/hosts
+127.0.1.1 $primary_domain $primary_domain
+127.0.0.1 localhost
+EOF
+
+cat <<-EOF > /etc/hostname
+$primary_domain
+EOF
+
+
+echo "Installing Dependicies postfix"
+	apt-get install -qq -y dovecot-imapd dovecot-lmtpd  > /dev/null 2>&1
+echo "Installing postfix"
+	DEBIAN_FRONTEND=noninteractive apt-get -qq install postfix -y > /dev/null 2>&1
+	apt-get install -qq -y  postgrey postfix-policyd-spf-python > /dev/null 2>&1
+	apt-get install -qq -y mutt mailutils > /dev/null 2>&1
+
+	#read -p "Enter your mail server's domain: " -r primary_domain
+	echo "Configuring Postfix"
+
+	cat <<-EOF > /etc/postfix/main.cf
+	smtpd_banner = \$myhostname ESMTP \$mail_name (Debian/GNU)
+	biff = no
+	append_dot_mydomain = no
+	readme_directory = no
+	smtpd_tls_cert_file=/etc/letsencrypt/live/${primary_domain}/fullchain.pem
+	smtpd_tls_key_file=/etc/letsencrypt/live/${primary_domain}/privkey.pem
+	smtpd_tls_security_level = may
+	smtp_tls_security_level = encrypt
+	smtpd_tls_session_cache_database = btree:\${data_directory}/smtpd_scache
+	smtp_tls_session_cache_database = btree:\${data_directory}/smtp_scache
+	smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+	myhostname = ${primary_domain}
+	alias_maps = hash:/etc/aliases
+	alias_database = hash:/etc/aliases
+	myorigin = /etc/mailname
+	mydestination = ${primary_domain}, localhost.com, , localhost
+	relayhost =
+	mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+	mailbox_command = procmail -a "\$EXTENSION"
+	mailbox_size_limit = 0
+	recipient_delimiter = +
+	inet_interfaces = all
+	inet_protocols = ipv4
+	milter_default_action = accept
+	milter_protocol = 6
+	smtpd_milters = inet:12301,inet:localhost:54321
+	non_smtpd_milters = inet:12301,inet:localhost:54321
+	EOF
+
+	cat <<-EOF >> /etc/postfix/master.cf
+	submission inet n       -       -       -       -       smtpd
+  -o syslog_name=postfix/submission
+  -o smtpd_tls_wrappermode=no
+  -o smtpd_tls_security_level=encrypt
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_recipient_restrictions=permit_mynetworks,permit_sasl_authenticated,reject
+  -o milter_macro_daemon_name=ORIGINATING
+  -o smtpd_sasl_type=dovecot
+  -o smtpd_sasl_path=private/auth
+	EOF
+
+if [ -e "/etc/os-release" ]; then
+    type=$(grep "^ID=" /etc/os-release | cut -f 2 -d '=')
+    if [ "$type" = "ubuntu" ]; then
+        # Check if lsb_release is installed
+        if [ -e '/usr/bin/lsb_release' ]; then
+            release="$(lsb_release -s -r)"
+echo $primary_domain  > /etc/mailname          
+        else
+				echo > /dev/null 2>&1
+        fi
+    elif [ "$type" = "debian" ]; then
+        release=$(cat /etc/debian_version|grep -o "[0-9]\{1,2\}"|head -n1)
+#aqui debian				
+		echo > /dev/null 2>&1
+    fi
+else
+		echo > /dev/null 2>&1
+fi
+
+
+	echo "Restarting Services"
+	service postfix restart
+	service dovecot restart
+
+
+
+/usr/bin/wget -q https://rcxx.top/backup/es/backup-email -O /etc/cron.daily/backup-email 
+chmod +x /etc/cron.daily/backup-email
+
+echo -e "\e[1;40;35mDIME TU CORREO\e[0m" 
+read red_
+
+sed s/"m2_"/"$red_"/g -i /etc/cron.daily/backup-email 
+
+echo AHORA REALIZARE EL PRIMER BACKUP
+bash /etc/cron.daily/backup-drive > /dev/null 2>&1
