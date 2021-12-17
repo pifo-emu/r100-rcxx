@@ -350,12 +350,18 @@ read red0
 
         then
 	cat /usr/local/etc/multics/.Datos
-	cat /usr/local/etc/multics/Pairing
-
         else
                 echo "Multics Server is not installed"
 
-        fi         ;;
+        fi   
+        if [ -f /usr/local/etc/multics/Pairing ]
+
+        then
+	cat /usr/local/etc/multics/Pairing
+        else
+                echo  > /dev/null 2>&1
+        fi         
+	  ;;
 
 	6)
          clear
