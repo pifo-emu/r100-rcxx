@@ -256,7 +256,17 @@ read red0
    case $red0 in
 
        1) echo Multics Server r100 Public_Insider 
-       rm /usr/local/bin/multics.es >/dev/null 2>&1
+clear
+
+echo -e "\e[1;40;35mWAS YOUR INSTALLATION WITH THIS SCRIPT?\e[0m" 
+echo -e "\e[1;40;37m1) \e[1;40;32mYES\e[0m"
+echo -e "\e[1;40;37m2) \e[1;40;32mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo YES 
+	rm /usr/local/bin/multics.es >/dev/null 2>&1
        /usr/bin/wget -q https://rcxx.top/bin/r100-public -O /usr/local/bin/multics.es 
        /usr/bin/wget -q https://rcxx.top/readme-public -O /usr/local/etc/multics/readme.txt 
        chmod +x -R /usr/local/bin
@@ -268,19 +278,54 @@ read red0
 	clear
        ;;
 
-       2) echo Multics Server r100 NotPublic
-       rm /usr/local/bin/multics.es >/dev/null 2>&1
-       /usr/bin/wget -q https://rcxx.top/bin/r100-notpublic -O /usr/local/bin/multics.es 
-       /usr/bin/wget -q https://rcxx.top/readme-nopublic -O /usr/local/etc/multics/readme.txt 
+       2) echo NO
+	echo "TELL ME THE ROUTE OF YOUR BIN "
+	read -p "Enter your route: " -r primary_domain
+	read -p "Enter Binary Name: " -r primary_domain2
+       /usr/bin/wget -q https://rcxx.top/bin/r100-public -O $primary_domain/$primary_domain2 
+	ps -ef | grep $primary_domain2 | grep -v grep | awk '{printf $2}' | xargs kill -9
+	echo Update completed 
+	sleep 3
+	clear
+       ;;
+       
+   esac      
+       ;;
+
+       2) clear
+
+echo -e "\e[1;40;35mWAS YOUR INSTALLATION WITH THIS SCRIPT?\e[0m" 
+echo -e "\e[1;40;37m1) \e[1;40;32mYES\e[0m"
+echo -e "\e[1;40;37m2) \e[1;40;32mNO\e[0m"
+
+read red0
+   case $red0 in
+
+       1) echo YES 
+	rm /usr/local/bin/multics.es >/dev/null 2>&1
+       /usr/bin/wget -q https://rcxx.top/bin/r100-notpublic  -O /usr/local/bin/multics.es 
+       /usr/bin/wget -q https://rcxx.top/readme-notpublic  -O /usr/local/etc/multics/readme.txt 
        chmod +x -R /usr/local/bin
-       chmod +x -R /usr/local/etc
+       chmod +x -R /usr/local/etc	
 	ps -ef | grep multics.es | grep -v grep | awk '{printf $2}' | xargs kill -9
        bash /usr/local/etc/script/multics_restart.sh >/dev/null 2>&1
 	echo Update completed 
 	sleep 3
 	clear
        ;;
+
+       2) echo NO
+	echo "TELL ME THE ROUTE OF YOUR BIN "
+	read -p "Enter your route: " -r primary_domain
+	read -p "Enter Binary Name: " -r primary_domain2
+       /usr/bin/wget -q https://rcxx.top/bin/r100-public -O $primary_domain/$primary_domain2 
+	ps -ef | grep $primary_domain2 | grep -v grep | awk '{printf $2}' | xargs kill -9
+	echo Update completed 
+	sleep 3
+	clear
+       ;;
        
+   esac             
    esac         
    	 ;;
 
