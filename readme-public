@@ -1,7 +1,7 @@
 
-release date: 12.12.2021
+release date: 17.12.2021
 
-MultiCS r100-rc47 Public_Insider - Broken Arrow - MEGA CLEAN CACHE Edition xDecrypt - xDecrypt-Digital-Technologies™ - 66f783ba93218b6a3892adc75f92f2fb7d68ac9f
+MultiCS r100-rc48 Public_Insider - Broken Arrow - MEGA CLEAN CACHE Edition xDecrypt - xDecrypt-Digital-Technologies™ - b409392d2a02101b90346c367654c7568228c7c6
 
 1. details for this version of multics :
    
@@ -242,7 +242,13 @@ MultiCS r100-rc47 Public_Insider - Broken Arrow - MEGA CLEAN CACHE Edition xDecr
    ------- fixed cache reconnect iptables problem (not yet fully tested) --------
    ------- added option HTTP CS378X: NO (in default if not in the config is enabled) --------   
 
-        
+                     CHAHNGES FOR rc48 Public_Insider:
+   ------- fix for 098d wrong ecm length on servers --------
+   ------- buffers optimalization to consumpting lower amount of ram memory --------
+   ------- other small code fixes --------  
+   ------- tested | stable | level: beta | OK --------       
+
+         
    ------- stability tested on 2183 server lines and 3682 newcamd connections and 111 profiles ----------  
 
 
