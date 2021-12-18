@@ -200,7 +200,7 @@ echo -e "$( crontab -u root -l)\n*/1 * * * * sh /usr/local/etc/script/multics_re
 /etc/init.d/cron restart  >/dev/null 2>&1
 chmod +x -R /usr/local/bin
 chmod +x -R /usr/local/etc
-
+clear
 echo -e "\e[1;40;35mQUE MULTICS SERVER QUIERES INSTALAR?\e[0m" 
 echo -e "\e[1;40;37m1) \e[1;40;32mMultics Server r100 Public_Insider\e[0m"
 echo -e "\e[1;40;37m2) \e[1;40;32mMultics Server r100 NotPublic\e[0m"
@@ -208,7 +208,8 @@ echo -e "\e[1;40;37m2) \e[1;40;32mMultics Server r100 NotPublic\e[0m"
 read red0
    case $red0 in
 
-       1) echo Multics Server r100 Public_Insider 
+       1) clear
+	echo Multics Server r100 Public_Insider 
        rm /usr/local/bin/multics.es >/dev/null 2>&1
        /usr/bin/wget -q https://rcxx.top/bin/r100-public -O /usr/local/bin/multics.es 
        /usr/bin/wget -q https://rcxx.top/es/r100-public -O /tmp/r100-public 
@@ -224,7 +225,8 @@ read red0
 
        ;;
 
-       2) echo Multics Server r100 NotPublic
+       2) clear
+	echo Multics Server r100 NotPublic
 	echo -e "\e[1;40;35mQue version quieres instalar?\e[0m" 
 	echo -e "\e[1;40;37m1) \e[1;40;32mversion Multics.es\e[0m"
 	echo -e "\e[1;40;37m2) \e[1;40;32mVersion Xdecrypt\e[0m"
