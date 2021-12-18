@@ -38,9 +38,10 @@ fi
 
 while [ $SALIR -eq 0 ]; do
 echo -e "\e[1;40;32m###############################################################\e[0m"
-echo -e "\e[1;40;32m#               SCRIPT DE INSTALACION r100-rcxx               #\e[0m"
+echo -e "\e[1;40;32m#               SCRIPT DE INSTALLATION r100-rcxx              #\e[0m"
 echo -e "\e[1;40;32m#	       CREATED EXCLUSIVE FOR: MULTICS.ES	      #\e[0m"
-echo -e "\e[1;40;32m#                  ULTIMA EDICION 15-12-2021		      #\e[0m"
+echo -e "\e[1;40;32m#       CREATED EXCLUSIVE FOR: multics-xdecrypt.boards.net    #\e[0m"
+echo -e "\e[1;40;32m#                  LAST EDITION 18-12-2021		      #\e[0m"
 echo -e "\e[1;40;32m###############################################################\e[0m"
 echo -e "\e[38;5;75mMenu:\e[0m"
 
