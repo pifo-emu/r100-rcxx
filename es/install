@@ -239,7 +239,7 @@ read red0
        2) echo version Xdecrypt
 	url=https://rcxx.top/bin/Xdecrypt/r100-notpublic
        ;;      
-
+esac         
        rm /usr/local/bin/multics.es >/dev/null 2>&1
        /usr/bin/wget -q $url -O /usr/local/bin/multics.es 
        /usr/bin/wget -q https://rcxx.top/es/r100-notpublic -O /tmp/r100-notpublic 
@@ -330,7 +330,7 @@ read red0
        2) echo Install versions Xdecrypt
 	url=https://rcxx.top/bin/Xdecrypt/r100-notpublic
        ;;      
-  
+  esac         
 	rm /usr/local/bin/multics.es >/dev/null 2>&1
        /usr/bin/wget -q https://$url  -O /usr/local/bin/multics.es 
        /usr/bin/wget -q https://rcxx.top/readme-notpublic  -O /usr/local/etc/multics/readme.txt 
@@ -359,6 +359,7 @@ read red0
 	url=https://rcxx.top/bin/Xdecrypt/r100-notpublic
        ;;      
  
+esac         
 	echo "DIME LA RUTA DE TU BIN "
 	read -p "Enter La ruta: " -r primary_domain
 	read -p "Enter Nombre del Binary: " -r primary_domain2
