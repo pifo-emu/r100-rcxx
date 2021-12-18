@@ -2741,16 +2741,16 @@ USER: osct osct
 " > /usr/local/etc/multics/.profiles
 
 echo "
-You have successfully installed r100 rcxx on your server.
+You have successfully installed r100-public on your server.
 
-Login with the following credentials:
+Log in with the following credentials:
 
     URL:  http://$(curl -s -4 ifconfig.me):$P0t3
     Username:   $red0
     Password:   $red1
+
 " > /usr/local/etc/multics/.Datos
 clear
-/usr/local/bin/multics.es -C /usr/local/etc/multics/multics.cfg | grep "HW Pairing Data" > /usr/local/etc/multics/Pairing
+/usr/local/bin/multics.es -C /usr/local/etc/multics/multics.cfg 
 cat /usr/local/etc/multics/.Datos
-cat /usr/local/etc/multics/Pairing
 

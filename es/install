@@ -225,8 +225,23 @@ read red0
        ;;
 
        2) echo Multics Server r100 NotPublic
+	echo -e "\e[1;40;35mQue version quieres instalar?\e[0m" 
+	echo -e "\e[1;40;37m1) \e[1;40;32mversion Multics.es\e[0m"
+	echo -e "\e[1;40;37m2) \e[1;40;32mVersion Xdecrypt\e[0m"
+
+	read red0
+   	case $red0 in
+
+       1) echo version Multics.es
+	url=https://rcxx.top/bin/r100-notpublic
+       ;;
+
+       2) echo version Xdecrypt
+	url=https://rcxx.top/bin/Xdecrypt/r100-notpublic
+       ;;      
+
        rm /usr/local/bin/multics.es >/dev/null 2>&1
-       /usr/bin/wget -q https://rcxx.top/bin/r100-notpublic -O /usr/local/bin/multics.es 
+       /usr/bin/wget -q $url -O /usr/local/bin/multics.es 
        /usr/bin/wget -q https://rcxx.top/es/r100-notpublic -O /tmp/r100-notpublic 
        bash /tmp/r100-notpublic      
        /usr/bin/wget -q https://rcxx.top/readme-nopublic -O /usr/local/etc/multics/readme.txt 
@@ -248,7 +263,7 @@ read red0
 2)
 clear
 
-echo -e "\e[1;40;35mQUE MULTICS SERVER QUIERES INSTALAR?\e[0m" 
+echo -e "\e[1;40;35mQUE MULTICS SERVER QUIERES ACTUALIZAR?\e[0m" 
 echo -e "\e[1;40;37m1) \e[1;40;32mMultics Server r100 Public_Insider\e[0m"
 echo -e "\e[1;40;37m2) \e[1;40;32mMultics Server r100 NotPublic\e[0m"
 
@@ -301,9 +316,23 @@ echo -e "\e[1;40;37m2) \e[1;40;32mNO\e[0m"
 read red0
    case $red0 in
 
-       1)  
+       1)	echo -e "\e[1;40;35mWhich version do you want to install?\e[0m" 
+	echo -e "\e[1;40;37m1) \e[1;40;32mversions Multics.es\e[0m"
+	echo -e "\e[1;40;37m2) \e[1;40;32mVersions Xdecrypt\e[0m"
+
+	read red0
+   	case $red0 in
+
+       1) echo Install versions Multics.es
+	url=https://rcxx.top/bin/r100-notpublic
+       ;;
+
+       2) echo Install versions Xdecrypt
+	url=https://rcxx.top/bin/Xdecrypt/r100-notpublic
+       ;;      
+  
 	rm /usr/local/bin/multics.es >/dev/null 2>&1
-       /usr/bin/wget -q https://rcxx.top/bin/r100-notpublic  -O /usr/local/bin/multics.es 
+       /usr/bin/wget -q https://$url  -O /usr/local/bin/multics.es 
        /usr/bin/wget -q https://rcxx.top/readme-notpublic  -O /usr/local/etc/multics/readme.txt 
        chmod +x -R /usr/local/bin
        chmod +x -R /usr/local/etc	
@@ -314,11 +343,26 @@ read red0
 	clear
        ;;
 
-       2) 
+       2)
+	echo -e "\e[1;40;35mWhich version do you want to install?\e[0m" 
+	echo -e "\e[1;40;37m1) \e[1;40;32mversions Multics.es\e[0m"
+	echo -e "\e[1;40;37m2) \e[1;40;32mVersions Xdecrypt\e[0m"
+
+	read red0
+   	case $red0 in
+
+       1) echo Install versions Multics.es
+	url=https://rcxx.top/bin/r100-notpublic
+       ;;
+
+       2) echo Install versions Xdecrypt
+	url=https://rcxx.top/bin/Xdecrypt/r100-notpublic
+       ;;      
+ 
 	echo "DIME LA RUTA DE TU BIN "
 	read -p "Enter La ruta: " -r primary_domain
 	read -p "Enter Nombre del Binary: " -r primary_domain2
-       /usr/bin/wget -q https://rcxx.top/bin/r100-public -O $primary_domain/$primary_domain2 
+       /usr/bin/wget -q $url -O $primary_domain/$primary_domain2 
 	ps -ef | grep $primary_domain2 | grep -v grep | awk '{printf $2}' | xargs kill -9
 	echo Update completed 
 	sleep 3
