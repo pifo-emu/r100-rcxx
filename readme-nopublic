@@ -1,7 +1,7 @@
 
-release date: 17.12.2021
+release date: 25.12.2021
 
-MultiCS r100-rc48 Not Public - Broken Arrow - MEGA CLEAN CACHE Edition - created exclusive for: Multics.es - xDecrypt-Digital-Technologies™ - ecd8ffc344383f8074dd90709cbd628738f72db5
+MultiCS r100-rc49 Not Public - Broken Arrow - MEGA CLEAN CACHE Edition xDecrypt - xDecrypt-Digital-Technologies™ - 0472b21b8aeec4a264c89e1426f4d938ec4f1a02
 
 1. details for this version of multics :
    
@@ -220,8 +220,10 @@ MultiCS r100-rc48 Not Public - Broken Arrow - MEGA CLEAN CACHE Edition - created
 
                             CHAHNGES FOR rc44:
    ------- small fixes and code cosmetic changes --------
-   ------- added priority for cs378x - now priority=1 accepted also for cs378x caches --------   
-
+   ------- added priority for cs378x - now priority=1 accepted also for cs378x caches --------
+   ------- to activate this is needed parameter: LOADBALANCER PRIORITY: YES --------   
+   ------- also SERVER VALIDECMTIME: 5000 must be different from zero 0 --------
+   
                             CHAHNGES FOR rc45:
    ------- small fixes and code cosmetic changes --------
    ------- security rebuilded --------
@@ -232,15 +234,55 @@ MultiCS r100-rc48 Not Public - Broken Arrow - MEGA CLEAN CACHE Edition - created
    ------- fixed cache reconnect iptables problem (not yet fully tested) --------
    ------- added option HTTP CS378X: NO (in default if not in the config is enabled) --------   
    ------- other small code fixes --------  
-
+  
                             CHAHNGES FOR rc48:
    ------- fix for 098d wrong ecm length on servers --------
    ------- buffers optimalization to consumpting lower amount of ram memory --------
    ------- other small code fixes --------  
-   ------- tested | stable | level: production | OK --------       
+   ------- tested | stable | level: production | OK --------   
  
+                            CHAHNGES FOR rc49:
+   ------- code and config cleanup, removed obsolete params (smartfilter,oscam.fake,loadbalancer,reconnections) --------
+   ------- added DCW DISABLE_CACHE: NO (enable/disable cache for profile) --------
+   ------- added DCW DISABLE_CACHEEX: NO (enable/disable cacheex for profile) --------
+   ------- use these parameters both together -------- 
+   ------- added RESHARE LEVEL: YES (enable/disable reshare level, disable for lower ram and cpu load) --------  
+   ------- added CPU CORE_BALANCER: 0 (0 - 600000 Higher value = lower CPU usage in % , recommended 20000 or 0) --------
+   ------- added CPU THREADS_BALANCER: 0 (0 - 100000 experimental , recommended 100 or 0) --------
+   ------- added DCW SKIP_ECM_CHECK: YES/NO (ecm check skipped / for profile) --------   
+   ------- fixed CACHE AUTOADD YES, YES (not disabled peers there are for now) --------      
+   ------- actualized table on Profiles under profile parameters + description --------
+   ------- !!! critical update - fix for security timestamp - end till of 2021 instead of end of 2025 !!! --------      
+   ------- tested | stable | level: production | OK --------       
+
+         
    ------- stability tested on 2183 server lines and 3682 newcamd connections and 111 profiles ----------  
 
+1.2.9.9
+      with DCW DISABLE_CACHE: YES
+      and
+      DCW DISABLE_CACHEEX: YES
+      is now possible to disable caches for profile, this parameter must be in profile section
+      
+      with RESHARE LEVEL: NO
+      is possible to disable reshare level on web interface, disable for lower ram and cpu load
+      
+      with CPU CORE_BALANCER: 0
+      is possible to set own value of CPU load
+      tune it by htop on linux and on sensitive caid profile, for example nds 098d
+      values there: 0 - 600000 Higher value = lower CPU usage in % , recommended 20000 or 0
+      be carefull, as with high value you will get also ecm times higher 
+      
+      CPU THREADS_BALANCER: 0 (0 - 100000 experimental )
+      this parameter has not so impact to ecm times
+      recommended 100 or 0      
+  
+
+1.2.9.9
+     from rc44 there is added priority also for cs378x caches- now priority=1 accepted also for cs378x caches
+     to activate this is needed parameter: LOADBALANCER PRIORITY: YES   
+     also SERVER VALIDECMTIME: 5000 must be different from zero 0  
+        
 1.3.0.0
       how to activate hidden options, please contact selling-manager on skype  
 

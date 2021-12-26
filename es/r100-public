@@ -1755,50 +1755,64 @@ rm /usr/local/etc/multics/FILE/INCLUDES
 
 echo "
 
+CUSTOM STRING: Auto-Install-MultiCS.es
+
+CUSTOM ID_CACHE: Auto-Install-MultiCS.es-RC100
+
+EMAIL INFO: $red2
+
+#==================================================
+#==                 R100-RC49 CONFIG             ==
+#==================================================
+AUTO_UPDATE ON: NO
+#
+RESHARE LEVEL: YES
+#
+HIDDEN OPTIONS: YES
+#
 NDS_AI_OPTION ACTIVE: YES
-
+#
 NDS_AI_CONSOLE ACTIVE: NO
-
-AUTO_UPDATE ON: YES
-
+#
+CPU CORE_BALANCER: 0   #0 - 600000 Higher value = lower CPU usage in % , recommended 20000 or 0
+#
+CPU THREADS_BALANCER: 0 #0 - 100000 experimental , recommended 100 or 0
+#
 CACHE_THRESHOLD_PROFILE ACTIVE: NO
-
+#
 ENCRYPT_CONFIG_FILE_ON_VPS ACTIVE: NO
-
-CUSTOM STRING: -xDecrypt-Digital-Technologies™
-
-#CUSTOM ID_CACHE: r100rc36-MYserver     #(max 30 characters)
-
-EMAIL INFO: sendmail741@gmail.com
-
+#
 LOADAVERAGE RESTART: 700
-
+#
+LOADBALANCER PRIORITY: YES
+#
 TURBOMODE ACTIVE: YES
-
+#
 MASK_AS HB_VXX: 0
-
+#
+HTTP CS378X: NO
+#
 #auto disable HB versions HB33 and above, for caches abuse with bad DCW for 09c4,1810,0b00
 AUTO_DISABLE_HB_VERSIONS ACTIVE: NO
-
-DCW_MINTIME_SET MS: 0
-MINTIME: 0
-
-
+#
+DCW_MINTIME_SET MS: 200
+MINTIME: 100
+#
 RESTART_ON SIGTERM: YES
 RESTART_ON SIGHUP: YES
 RESTART_ON SIGABRT: YES
 RESTART_ON SIGSEGV: YES
-
-RUN_SCRIPT_ON SIGTERM: /mnt/rd/x/etc/multics4/sendmail_on_sigterm_multics4.sh
-RUN_SCRIPT_ON SIGHUP: /mnt/rd/x/etc/multics4/sendmail_on_sighup_multics4.sh
-RUN_SCRIPT_ON SIGABRT: /mnt/rd/x/etc/multics4/sendmail_on_sigabrt_multics4.sh
-RUN_SCRIPT_ON SIGSEGV: /mnt/rd/x/etc/multics4/sendmail_on_sigsegv_multics4.sh
-
+#
+RUN_SCRIPT_ON SIGTERM: /usr/local/etc/multics/sendmail_on_sigterm_multics.x64.sh
+RUN_SCRIPT_ON SIGHUP: /usr/local/etc/multics/sendmail_on_sighup_multics.x64.sh
+RUN_SCRIPT_ON SIGABRT: /usr/local/etc/multics/sendmail_on_sigabrt_multics.x64.sh
+RUN_SCRIPT_ON SIGSEGV: /usr/local/etc/multics/sendmail_on_sigsegv_multics.x64.sh
+#
 CACHE MINHITS: 0
 CACHE LOWHITS_AUTODISABLE_AFTERSECONDS: 0
 CACHE CHECK_INACTIVE_EVERYSECONDS: 0
 CACHE REMARK_INACTIVE_AFTERSECONDS_INACTIVITY: 0
-
+#
 IPTABLES CACHE: ON
 IPTABLES NEWCAMD: ON
 IPTABLES MGCAMD: ON
@@ -1806,21 +1820,22 @@ IPTABLES CCCAM: ON
 IPTABLES CS378X: OFF
 IPTABLES SOFTMODE: ON
 IPTABLES FORCEMODE: OFF
-
+#
 #experimental for testing , you can disable servers with 0% ecm ok and <10% ecm ok
 AUTO_DISABLE_SERVERS ZERO: NO
 AUTO_DISABLE_SERVERS ZERO_AFTER_SECONDS: 0
 AUTO_DISABLE_SERVERS ZERO_TEN: NO
 AUTO_DISABLE_SERVERS ZERO_TEN_AFTER_SECONDS: 0
-
+#
 AUTO_DISABLE_BAD_RECONNECTION_USERS GENERIC_COUNT: 500
 AUTO_DISABLE_BAD_RECONNECTION_USERS UNIQ_COUNT: 100
+#
 #experimental for testing , you can turn on reconnections monitoring , for now working only newecamd, for details see readme.txt
 AUTO_DISABLE_BAD_RECONNECTION_USERS NEWCAMD: NO
 AUTO_DISABLE_BAD_RECONNECTION_USERS MGCAMD: NO
 AUTO_DISABLE_BAD_RECONNECTION_USERS CCCAM: NO
 AUTO_DISABLE_BAD_RECONNECTION_USERS CS378X: NO
-
+#
 #values lower as 400 only log
 AUTO_DISABLE_BAD_RECONNECTION_USERS NEWCAMD_SECONDS: 0
 #for now working only newcamd option
@@ -1828,22 +1843,24 @@ AUTO_DISABLE_BAD_RECONNECTION_USERS MGCAMD_SECONDS: 0
 AUTO_DISABLE_BAD_RECONNECTION_USERS CCCAM_SECONDS: 0
 AUTO_DISABLE_BAD_RECONNECTION_USERS CS378X_SECONDS: 0
 AUTO_DISABLE_BAD_RECONNECTION_USERS DISABLE_COUNT_PER_HOUR_MORE_AS: 600 
-
+#
 #working only on low level servers, otherwise may cause falls > srv->busy , than don't use higher values on very big and fast servers
 LOADBALANCER MAX_SERVERS: 0
 LOADBALANCER FASTEST_SERVER_FIRST: NO
 LOADBALANCER FASTEST_MAXIMUM_ECM_TIME: 0
+#
 #this parameter is valid also for validecmtime
 LOADBALANCER INIT_AFTER_ECMOK: 10
 #time for users are moving between connected and active
 LOADBALANCER ACTIVE_VALUE: 20000
+#
 #with this parameter validecmtime loadblancer cycles are active, if validecmtime is set and adecvate server is not found , than are processed cycles till found server
 LOADBALANCER CYCLES_ACTIVE: NO
 LOADBALANCER TWO_PLUS_MILISECONDS: 300
 LOADBALANCER THREE_PLUS_MILISECONDS: 400
 LOADBALANCER FOUR_PLUS_MILISECONDS: 500
 LOADBALANCER FIVE_PLUS_MILISECONDS: 3000
-
+#
 #if you have oscam.fakecws file in config_path, it's reading it on start and sort all and nds, you can here turn on control for fake cws, recommended only NDS
 OSCAM_FAKE_CWS LOG_ACTIVE: NO
 OSCAM_FAKE_CWS LOG_TO_FILE_ACTIVE: NO
@@ -1851,7 +1868,6 @@ OSCAM_FAKE_CWS LOG_FILE_REMOVE_AFTER_SECONDS: 604800
 OSCAM_FAKE_CWS ACTIVE_ALL: NO
 OSCAM_FAKE_CWS ACTIVE_NDS: NO
 OSCAM_FAKE_CWS REVERSE: NO
-
 
 HWPAIRING KEY: 80E89021CF845006FE231575278A6E53C2E3B2FC14B783D95D015A6067F487D2127A38ECA36D0831000A5668109487301D9029EBABAEA3CB876DED7DB3EEC04C
 CHECKSUM: 3F9C53936368E104494E85B99A793A00
