@@ -1,7 +1,7 @@
 
-release date: 17.12.2021
+release date: 25.12.2021
 
-MultiCS r100-rc48 Public_Insider - Broken Arrow - MEGA CLEAN CACHE Edition xDecrypt - xDecrypt-Digital-Technologiesâ„¢ - b409392d2a02101b90346c367654c7568228c7c6
+MultiCS r100-rc49 Public_Insider - Broken Arrow - MEGA CLEAN CACHE Edition xDecrypt - xDecrypt-Digital-Technologies™ - 1c6ca05b6e43f22aa5992824157ade9f035205f4
 
 1. details for this version of multics :
    
@@ -248,9 +248,41 @@ MultiCS r100-rc48 Public_Insider - Broken Arrow - MEGA CLEAN CACHE Edition xDecr
    ------- other small code fixes --------  
    ------- tested | stable | level: beta | OK --------       
 
+                     CHAHNGES FOR rc49 Public_Insider:
+   ------- code and config cleanup, removed obsolete params (smartfilter,oscam.fake,loadbalancer,reconnections) --------
+   ------- added DCW DISABLE_CACHE: NO (enable/disable cache for profile) --------
+   ------- added DCW DISABLE_CACHEEX: NO (enable/disable cacheex for profile) --------
+   ------- use these parameters both together -------- 
+   ------- added RESHARE LEVEL: YES (enable/disable reshare level, disable for lower ram and cpu load) --------  
+   ------- added CPU CORE_BALANCER: 0 (0 - 600000 Higher value = lower CPU usage in % , recommended 20000 or 0) --------
+   ------- added CPU THREADS_BALANCER: 0 (0 - 100000 experimental , recommended 100 or 0) --------
+   ------- fixed CACHE AUTOADD YES, YES (not disabled peers there are for now) --------      
+   ------- actualized table on Profiles under profile parameters + description --------
+   ------- !!! fix for critical security timestamp to end of 2021 instead of end of 2025 !!! --------      
+   ------- tested | stable | level: beta | OK --------       
+
+
          
    ------- stability tested on 2183 server lines and 3682 newcamd connections and 111 profiles ----------  
 
+1.2.9.9
+      with DCW DISABLE_CACHE: YES
+      and
+      DCW DISABLE_CACHEEX: YES
+      is now possible to disable caches for profile, this parameter must be in profile section
+      
+      with RESHARE LEVEL: NO
+      is possible to disable reshare level on web interface, disable for lower ram and cpu load
+      
+      with CPU CORE_BALANCER: 0
+      is possible to set own value of CPU load
+      tune it by htop on linux and on sensitive caid profile, for example nds 098d
+      values there: 0 - 600000 Higher value = lower CPU usage in % , recommended 20000 or 0
+      be carefull, as with high value you will get also ecm times higher 
+      
+      CPU THREADS_BALANCER: 0 (0 - 100000 experimental )
+      this parameter has not so impact to ecm times
+      recommended 100 or 0   
 
 1.3.0.0
       how to activate hidden options, please contact selling-manager on skype  
