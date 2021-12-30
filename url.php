@@ -1,47 +1,25 @@
 <?php
 /*
-NOTE: miniProxy IS NO LONGER MAINTAINED AS OF APRIL 26th, 2020.
-IF YOU USE IT, YOU DO SO ENTIRELY AT YOUR OWN RISK.
-More information is available at <https://github.com/joshdick/miniProxy>.
-*/
-
-/*
 miniProxy - A simple PHP web proxy. <https://github.com/joshdick/miniProxy>
 Written and maintained by Joshua Dick <http://joshdick.net>.
-miniProxy is licensed under the GNU GPL v3 <https://www.gnu.org/licenses/gpl-3.0.html>.
+miniProxy is licensed under the GNU GPL v3 <http://www.gnu.org/licenses/gpl.html>.
 */
 
 /****************************** START CONFIGURATION ******************************/
 
-//NOTE: If a given URL matches a pattern in both $whitelistPatterns and $blacklistPatterns,
-//that URL will be treated as blacklisted.
-
 //To allow proxying any URL, set $whitelistPatterns to an empty array (the default).
 //To only allow proxying of specific URLs (whitelist), add corresponding regular expressions
-//to the $whitelistPatterns array. To prevent possible abuse, enter the narrowest/most-specific patterns possible.
+//to the $whitelistPatterns array. Enter the most specific patterns possible, to prevent possible abuse.
 //You can optionally use the "getHostnamePattern()" helper function to build a regular expression that
 //matches all URLs for a given hostname.
-$whitelistPatterns = [
-  //Usage example: To whitelist any URL at example.net, including sub-domains, uncomment the
+$whitelistPatterns = array(
+  //Usage example: To support any URL at example.net, including sub-domains, uncomment the
   //line below (which is equivalent to [ @^https?://([a-z0-9-]+\.)*example\.net@i ]):
   //getHostnamePattern("example.net")
-];
-
-//To disallow proxying of specific URLs (blacklist), add corresponding regular expressions
-//to the $blacklistPatterns array. To prevent possible abuse, enter the broadest/least-specific patterns possible.
-//You can optionally use the "getHostnamePattern()" helper function to build a regular expression that
-//matches all URLs for a given hostname.
-$blacklistPatterns = [
-  //Usage example: To blacklist any URL at example.net, including sub-domains, uncomment the
-  //line below (which is equivalent to [ @^https?://([a-z0-9-]+\.)*example\.net@i ]):
-  //getHostnamePattern("example.net")
-];
+);
 
 //To enable CORS (cross-origin resource sharing) for proxied sites, set $forceCORS to true.
 $forceCORS = false;
-
-//Set to false to allow sites on the local network (where miniProxy is running) to be proxied.
-$disallowLocal = true;
 
 //Set to false to report the client machine's IP address to proxied sites via the HTTP `x-forwarded-for` header.
 //Setting to false may improve compatibility with some sites, but also exposes more information about end users to proxied sites.
@@ -64,72 +42,25 @@ if (version_compare(PHP_VERSION, "5.4.7", "<")) {
   die("miniProxy requires PHP version 5.4.7 or later.");
 }
 
-$requiredExtensions = ["curl", "mbstring", "xml"];
+$requiredExtensions = ['curl', 'mbstring', 'xml'];
 foreach($requiredExtensions as $requiredExtension) {
   if (!extension_loaded($requiredExtension)) {
     die("miniProxy requires PHP's \"" . $requiredExtension . "\" extension. Please install/enable it on your server and try again.");
   }
 }
 
-//Helper function for use inside $whitelistPatterns/$blacklistPatterns.
+//Helper function for use inside $whitelistPatterns.
 //Returns a regex that matches all HTTP[S] URLs for a given hostname.
 function getHostnamePattern($hostname) {
   $escapedHostname = str_replace(".", "\.", $hostname);
   return "@^https?://([a-z0-9-]+\.)*" . $escapedHostname . "@i";
 }
 
-//Helper function that determines whether to allow proxying of a given URL.
-function isValidURL($url) {
-  //Validates a URL against the whitelist.
-  function passesWhitelist($url) {
-    if (count($GLOBALS['whitelistPatterns']) === 0) return true;
-    foreach ($GLOBALS['whitelistPatterns'] as $pattern) {
-      if (preg_match($pattern, $url)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  //Validates a URL against the blacklist.
-  function passesBlacklist($url) {
-    foreach ($GLOBALS['blacklistPatterns'] as $pattern) {
-      if (preg_match($pattern, $url)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  function isLocal($url) {
-    //First, generate a list of IP addresses that correspond to the requested URL.
-    $ips = [];
-    $host = parse_url($url, PHP_URL_HOST);
-    if (filter_var($host, FILTER_VALIDATE_IP)) {
-      //The supplied host is already a valid IP address.
-      $ips = [$host];
-    } else {
-      //The host is not a valid IP address; attempt to resolve it to one.
-      $dnsResult = dns_get_record($host, DNS_A + DNS_AAAA);
-      $ips = array_map(function($dnsRecord) { return $dnsRecord['type'] == 'A' ? $dnsRecord['ip'] : $dnsRecord['ipv6']; }, $dnsResult);
-    }
-    foreach ($ips as $ip) {
-      //Determine whether any of the IPs are in the private or reserved range.
-      if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  return passesWhitelist($url) && passesBlacklist($url) && ($GLOBALS['disallowLocal'] ? !isLocal($url) : true);
-}
-
 //Helper function used to removes/unset keys from an associative array using case insensitive matching
 function removeKeys(&$assoc, $keys2remove) {
   $keys = array_keys($assoc);
-  $map = [];
-  $removedKeys = [];
+  $map = array();
+  $removedKeys = array();
   foreach ($keys as $key) {
     $map[strtolower($key)] = $key;
   }
@@ -146,7 +77,7 @@ function removeKeys(&$assoc, $keys2remove) {
 if (!function_exists("getallheaders")) {
   //Adapted from http://www.php.net/manual/en/function.getallheaders.php#99814
   function getallheaders() {
-    $result = [];
+    $result = array();
     foreach($_SERVER as $key => $value) {
       if (substr($key, 0, 5) == "HTTP_") {
         $key = str_replace(" ", "-", ucwords(strtolower(str_replace("_", " ", substr($key, 5)))));
@@ -182,22 +113,19 @@ function makeRequest($url) {
   $browserRequestHeaders = getallheaders();
 
   //...but let cURL set some headers on its own.
-  $removedHeaders = removeKeys(
-    $browserRequestHeaders,
-    [
-      "Accept-Encoding", //Throw away the browser's Accept-Encoding header if any and let cURL make the request using gzip if possible.
-      "Content-Length",
-      "Host",
-      "Origin"
-    ]
-  );
+  $removedHeaders = removeKeys($browserRequestHeaders, array(
+    "Accept-Encoding", //Throw away the browser's Accept-Encoding header if any and let cURL make the request using gzip if possible.
+    "Content-Length",
+    "Host",
+    "Origin"
+  ));
 
-  $removedHeaders = array_map("strtolower", $removedHeaders);
+  array_change_key_case($removedHeaders, CASE_LOWER);
 
   curl_setopt($ch, CURLOPT_ENCODING, "");
   //Transform the associative array from getallheaders() into an
   //indexed array of header strings to be passed to cURL.
-  $curlRequestHeaders = [];
+  $curlRequestHeaders = array();
   foreach ($browserRequestHeaders as $name => $value) {
     $curlRequestHeaders[] = $name . ": " . $value;
   }
@@ -206,10 +134,10 @@ function makeRequest($url) {
   }
   //Any `origin` header sent by the browser will refer to the proxy itself.
   //If an `origin` header is present in the request, rewrite it to point to the correct origin.
-  if (in_array("origin", $removedHeaders)) {
+  if (array_key_exists('origin', $removedHeaders)) {
     $urlParts = parse_url($url);
-    $port = $urlParts["port"];
-    $curlRequestHeaders[] = "Origin: " . $urlParts["scheme"] . "://" . $urlParts["host"] . (empty($port) ? "" : ":" . $port);
+    $port = $urlParts['port'];
+    $curlRequestHeaders[] = "Origin: " . $urlParts['scheme'] . "://" . $urlParts['host'] . (empty($port) ? "" : ":" . $port);
   };
   curl_setopt($ch, CURLOPT_HTTPHEADER, $curlRequestHeaders);
 
@@ -223,7 +151,7 @@ function makeRequest($url) {
       //across different server environments.
       //More info here: http://stackoverflow.com/questions/8899239/http-raw-post-data-not-being-populated-after-upgrade-to-php-5-3
       //If the miniProxyFormAction field appears in the POST data, remove it so the destination server doesn't receive it.
-      $postData = [];
+      $postData = Array();
       parse_str(file_get_contents("php://input"), $postData);
       if (isset($postData["miniProxyFormAction"])) {
         unset($postData["miniProxyFormAction"]);
@@ -255,7 +183,7 @@ function makeRequest($url) {
   $responseHeaders = substr($response, 0, $headerSize);
   $responseBody = substr($response, $headerSize);
 
-  return ["headers" => $responseHeaders, "body" => $responseBody, "responseInfo" => $responseInfo];
+  return array("headers" => $responseHeaders, "body" => $responseBody, "responseInfo" => $responseInfo);
 }
 
 //Converts relative URLs to absolute ones, given a base URL.
@@ -277,14 +205,14 @@ function rel2abs($rel, $base) {
     $auth .= "@";
   }
   $abs = "$auth$host$port$path/$rel"; //Dirty absolute URL
-  for ($n = 1; $n > 0; $abs = preg_replace(["#(/\.?/)#", "#/(?!\.\.)[^/]+/\.\./#"], "/", $abs, -1, $n)) {} //Replace '//' or '/./' or '/foo/../' with '/'
+  for ($n = 1; $n > 0; $abs = preg_replace(array("#(/\.?/)#", "#/(?!\.\.)[^/]+/\.\./#"), "/", $abs, -1, $n)) {} //Replace '//' or '/./' or '/foo/../' with '/'
   return $scheme . "://" . $abs; //Absolute URL is ready.
 }
 
 //Proxify contents of url() references in blocks of CSS text.
 function proxifyCSS($css, $baseURL) {
-  //Add a "url()" wrapper to any CSS @import rules that only specify a URL without the wrapper,
-  //so that they're proxified when searching for "url()" wrappers below.
+  // Add a "url()" wrapper to any CSS @import rules that only specify a URL without the wrapper,
+  // so that they're proxified when searching for "url()" wrappers below.
   $sourceLines = explode("\n", $css);
   $normalizedLines = [];
   foreach ($sourceLines as $line) {
@@ -335,7 +263,7 @@ if (isset($_POST["miniProxyFormAction"])) {
   $url = $_POST["miniProxyFormAction"];
   unset($_POST["miniProxyFormAction"]);
 } else {
-  $queryParams = [];
+  $queryParams = Array();
   parse_str($_SERVER["QUERY_STRING"], $queryParams);
   //If the miniProxyFormAction field appears in the query string, make $url start with its value, and rebuild the the query string without it.
   if (isset($queryParams["miniProxyFormAction"])) {
@@ -344,6 +272,7 @@ if (isset($_POST["miniProxyFormAction"])) {
     $url = $formAction . "?" . http_build_query($queryParams);
   } else {
     $url = substr($_SERVER["REQUEST_URI"], strlen($_SERVER["SCRIPT_NAME"]) + 1);
+    $url = 'https://mailfud.org/geoip-legacy/'.$url; //aqui armamos la url
   }
 }
 if (empty($url)) {
@@ -360,18 +289,23 @@ if (empty($url)) {
 }
 $scheme = parse_url($url, PHP_URL_SCHEME);
 if (empty($scheme)) {
+  //Assume that any supplied URLs starting with // are HTTP URLs.
   if (strpos($url, "//") === 0) {
-    //Assume that any supplied URLs starting with // are HTTP URLs.
     $url = "http:" . $url;
-  } else {
-    //Assume that any supplied URLs without a scheme (just a host) are HTTP URLs.
-    $url = "http://" . $url;
   }
 } else if (!preg_match("/^https?$/i", $scheme)) {
     die('Error: Detected a "' . $scheme . '" URL. miniProxy exclusively supports http[s] URLs.');
 }
 
-if (!isValidURL($url)) {
+//Validate the requested URL against the whitelist.
+$urlIsValid = count($whitelistPatterns) === 0;
+foreach ($whitelistPatterns as $pattern) {
+  if (preg_match($pattern, $url)) {
+    $urlIsValid = true;
+    break;
+  }
+}
+if (!$urlIsValid) {
   die("Error: The requested URL was disallowed by the server administrator.");
 }
 
@@ -487,12 +421,11 @@ if (stripos($contentType, "text/html") !== false) {
     $element->setAttribute("srcset", proxifySrcset($element->getAttribute("srcset"), $url));
   }
   //Proxify any of these attributes appearing in any tag.
-  $proxifyAttributes = ["href", "src"];
+  $proxifyAttributes = array("href", "src");
   foreach($proxifyAttributes as $attrName) {
     foreach($xpath->query("//*[@" . $attrName . "]") as $element) { //For every element with the given attribute...
       $attrContent = $element->getAttribute($attrName);
-      if ($attrName == "href" && preg_match("/^(about|javascript|magnet|mailto):|#/i", $attrContent)) continue;
-      if ($attrName == "src" && preg_match("/^(data):/i", $attrContent)) continue;
+      if ($attrName == "href" && preg_match("/^(about|javascript|magnet|mailto):/i", $attrContent)) continue;
       $attrContent = rel2abs($attrContent, $url);
       $attrContent = PROXY_PREFIX . $attrContent;
       $element->setAttribute($attrName, $attrContent);
@@ -512,14 +445,14 @@ if (stripos($contentType, "text/html") !== false) {
 
   $head = $xpath->query("//head")->item(0);
   $body = $xpath->query("//body")->item(0);
-  $prependElem = $head != null ? $head : $body;
+  $prependElem = $head != NULL ? $head : $body;
 
   //Only bother trying to apply this hack if the DOM has a <head> or <body> element;
   //insert some JavaScript at the top of whichever is available first.
   //Protects against cases where the server sends a Content-Type of "text/html" when
   //what's coming back is most likely not actually HTML.
   //TODO: Do this check before attempting to do any sort of DOM parsing?
-  if ($prependElem != null) {
+  if ($prependElem != NULL) {
 
     $scriptElem = $doc->createElement("script",
       '(function() {
@@ -575,9 +508,7 @@ if (stripos($contentType, "text/html") !== false) {
               if (arguments[1] !== null && arguments[1] !== undefined) {
                 var url = arguments[1];
                 url = rel2abs("' . $url . '", url);
-                if (url.indexOf("' . PROXY_PREFIX . '") == -1) {
-                  url = "' . PROXY_PREFIX . '" + url;
-                }
+                url = "' . PROXY_PREFIX . '" + url;
                 arguments[1] = url;
               }
               return proxied.apply(this, [].slice.call(arguments));
