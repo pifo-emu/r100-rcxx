@@ -1,0 +1,34 @@
+if [ -f /root/.config/ip2country/ip2country.conf ];
+then
+IP2COUNTRY=`awk 'NR==1' /root/.config/ip2country/ip2country.conf`
+rm /tmp/lo /tmp/GeoIP-legacy.csv > /dev/null 2>&1
+/usr/bin/wget -q "https://mailfud.org/geoip-legacy/GeoIP-legacy.csv.gz" -O  /tmp/GeoIP-legacy.csv.gz
+gzip -d /tmp/GeoIP-legacy.csv.gz
+echo "###############################################################
+#               SCRIPT DE INSTALLATION r100-rcxx              #
+#	       CREATED EXCLUSIVE FOR: MULTICS.ES	   	      #
+#              LAST EDITION echo `date +%d-%m-%Y` BY PIFO	      #
+###############################################################
+" > /tmp/lo
+cat /tmp/lo /tmp/GeoIP-legacy.csv > $IP2COUNTRY
+echo Update completed 
+else
+echo -e "\e[1;40;32m###############################################################\e[0m"
+echo -e "\e[1;40;32m#               SCRIPT DE UPDATE IP2COUNTRY		      #\e[0m"
+echo -e "\e[1;40;32m#	       CREATED EXCLUSIVE FOR: MULTICS.ES	      #\e[0m"
+echo -e "\e[1;40;32m#			CREATE BY PIFO			      #\e[0m"
+echo -e "\e[1;40;32m#                  LAST EDITION 30-12-2021		      #\e[0m"
+echo -e "\e[1;40;32m###############################################################\e[0m"
+mkdir /root/.config/ > /dev/null 2>&1
+mkdir /root/.config/ip2country/ > /dev/null 2>&1
+echo "DIME LA RUTA COMPLETA DE TU FILE IP2COUNTRY:"
+read -p "FILE IP2COUNTRY: " -r primary_domain
+echo $primary_domain > /root/.config/ip2country/ip2country.conf
+fi
+
+crontab -u root -l | grep https://rcxx.top/ip2country/ip2country  > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+echo > /dev/null 2>&1
+else [ $? -eq 1 ];
+echo -e "$( crontab -u root -l)\n0 0 * * * /usr/bin/wget -O - -q  https://rcxx.top/ip2country/ip2country | bash >/dev/null 2>&1" |  crontab -u root -
+fi 
