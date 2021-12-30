@@ -4,12 +4,11 @@ IP2COUNTRY=`awk 'NR==1' /root/.config/ip2country/ip2country.conf`
 rm /tmp/lo /tmp/GeoIP-legacy.csv > /dev/null 2>&1
 /usr/bin/wget -q "https://mailfud.org/geoip-legacy/GeoIP-legacy.csv.gz" -O  /tmp/GeoIP-legacy.csv.gz
 gzip -d /tmp/GeoIP-legacy.csv.gz
-echo "###############################################################
-#               SCRIPT DE INSTALLATION r100-rcxx              #
-#	       CREATED EXCLUSIVE FOR: MULTICS.ES	   	      #
-#              LAST EDITION echo `date +%d-%m-%Y` BY PIFO	      #
-###############################################################
-" > /tmp/lo
+echo "#########################################################" > /tmp/lo
+echo "#		SCRIPT DE UPDATE IP2COUNTRY           	#" >> /tmp/lo
+echo "#	    CREATED EXCLUSIVE FOR: MULTICS.ES	     	#" >> /tmp/lo
+echo "#	     LAST EDITION `date +%d-%m-%Y` BY PIFO	      	#" >> /tmp/lo
+echo "#########################################################" >> /tmp/lo
 cat /tmp/lo /tmp/GeoIP-legacy.csv > $IP2COUNTRY
 echo Update completed 
 else
