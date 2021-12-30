@@ -188,26 +188,47 @@ echo "###############################################################
 cat /tmp/lo /tmp/GeoIP-legacy.csv > /usr/local/etc/multics/FILE/ip2country.csv
 
 echo "
-#!/bin/sh
+#!/bin/bash
+rm /var/tmp/multics.log >/dev/null
 
-#Servidor MultiCS SCS
-if ps x |grep -v grep |grep -c /usr/local/bin/multics.es >/dev/null
-then
-echo "multics... ok"
-else
-echo "multics... restarting"
-/usr/local/bin/multics.es -b -C /usr/local/etc/multics/multics.cfg
-sleep 5
-ps -ef | grep multics.es | grep -v "grep" | awk '{print $3}' |  grep '..' | xargs kill
+exit
+" > /usr/local/etc/script/multics_log.sh
 
-fi
-" > /usr/local/etc/script/multics_restart.sh
+sed -i -e  '/multics_log.sh/d' /var/spool/cron/crontabs/root > /dev/null 2>&1
 
-sed -i -e  '/multics_restart.sh/d' /var/spool/cron/crontabs/root > /dev/null 2>&1
-
-echo -e "$( crontab -u root -l)\n*/1 * * * * sh /usr/local/etc/script/multics_restart.sh >/dev/null 2>&1" |  crontab -u root -
+echo -e "$( crontab -u root -l)\n*/1 * * * * sh /usr/local/etc/script/multics_log.sh >/dev/null 2>&1" |  crontab -u root -
 
 /etc/init.d/cron restart  >/dev/null 2>&1
+
+echo " [Unit]
+
+Description=Multics daemon
+
+After=network.target
+
+Requires=network.target
+
+[Service]
+
+Type=forking
+
+ExecStart=/usr/local/bin/multics.es  -b -C /usr/local/etc/multics/multics.cfg
+
+TimeoutStopSec=1
+
+Restart=always
+
+RestartSec=5
+
+StartLimitInterval=0
+
+[Install]
+
+WantedBy=multi-user.target
+" > /etc/systemd/system/multics.service
+systemctl daemon-reload   >/dev/null 2>&1
+systemctl enable multics.service   >/dev/null 2>&1
+
 chmod +x -R /usr/local/bin
 chmod +x -R /usr/local/etc
 clear
