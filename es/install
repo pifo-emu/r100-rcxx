@@ -93,11 +93,6 @@ echo "Changing Hostname"
 
 read -p "Enter your hostname: " -r primary_domain
 
-cat <<-EOF > /etc/hosts
-127.0.1.1 $primary_domain $primary_domain
-127.0.0.1 localhost
-EOF
-
 cat <<-EOF > /etc/hostname
 $primary_domain
 EOF
@@ -320,7 +315,6 @@ read red0
        chmod +x -R /usr/local/bin
        chmod +x -R /usr/local/etc	
 	ps -ef | grep multics.es | grep -v grep | awk '{printf $2}' | xargs kill -9
-       bash /usr/local/etc/script/multics_restart.sh >/dev/null 2>&1
 	echo Update completed 
 	sleep 3
 	clear
@@ -370,7 +364,6 @@ read red0
        chmod +x -R /usr/local/bin
        chmod +x -R /usr/local/etc	
 	ps -ef | grep multics.es | grep -v grep | awk '{printf $2}' | xargs kill -9
-       bash /usr/local/etc/script/multics_restart.sh >/dev/null 2>&1
 	echo Update completed 
 	sleep 3
 	clear
