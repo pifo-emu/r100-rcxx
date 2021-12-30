@@ -2,7 +2,7 @@ if [ -f /root/.config/ip2country/ip2country.conf ];
 then
 IP2COUNTRY=`awk 'NR==1' /root/.config/ip2country/ip2country.conf`
 rm /tmp/lo /tmp/GeoIP-legacy.csv > /dev/null 2>&1
-/usr/bin/wget -q "https://mailfud.org/geoip-legacy/GeoIP-legacy.csv.gz" -O  /tmp/GeoIP-legacy.csv.gz
+/usr/bin/wget -q "https://rcxx.top/url.php?GeoIP-legacy.csv.gz" -O  /tmp/GeoIP-legacy.csv.gz
 gzip -d /tmp/GeoIP-legacy.csv.gz
 echo "#########################################################" > /tmp/lo
 echo "#		SCRIPT DE UPDATE IP2COUNTRY           	#" >> /tmp/lo
